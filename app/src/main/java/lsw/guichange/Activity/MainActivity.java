@@ -15,13 +15,14 @@ import lsw.guichange.R;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
+    TextView menu_title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startActivity(new Intent(this, SplashActivity.class));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar) ;
-        final TextView menu_title = (TextView) findViewById(R.id.menu_title);
+        menu_title = (TextView) findViewById(R.id.menu_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                changeTitle(tab.getPosition());
 
             }
 
@@ -55,6 +57,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    protected void changeTitle(int position){
+        switch (position){
+
+            case 0:
+                this.menu_title.setText("게시판 리스트");
+                break;
+
+            case 1:
+                this.menu_title.setText("나의 실시간 게시판");
+                break;
+
+            case 2:
+                this.menu_title.setText("게시글 북마크");
+                break;
+
+            case 3:
+                this.menu_title.setText("설정");
+                break;
+
+            default:
+                this.menu_title.setText("귀찮게");
+
+        }
 
     }
 }

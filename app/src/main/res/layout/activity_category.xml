@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
@@ -22,27 +22,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:text="게시판 리스트"
                 android:textColor="@color/None"
-                android:id="@+id/menu_title"
+                android:id="@+id/category_activity_title"
                 android:textSize="20sp"
                 android:layout_weight="0.13" />
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
-                app:tabIndicatorColor="@color/colorAccent"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>
-
