@@ -24,6 +24,7 @@
                 android:layout_marginLeft="50dp"
                 android:text="@string/app_name"
                 android:textColor="@color/None"
+                android:id="@+id/menu_title"
                 android:textSize="20sp"
                 android:layout_weight="0.13" />
 

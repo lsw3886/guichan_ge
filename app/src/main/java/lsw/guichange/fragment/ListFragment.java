@@ -4,10 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import lsw.guichange.Adapter.RecyclerViewAdapter.ListAdapter;
+import lsw.guichange.Item.Category;
 import lsw.guichange.R;
 
 
@@ -16,7 +24,9 @@ public class ListFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ArrayList<Category> categories;
+    RecyclerView recyclerView;
+    ListAdapter adapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -30,6 +40,7 @@ public class ListFragment extends Fragment {
 
     public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
+        fragment.categories = fragment.Makecategories();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -52,7 +63,21 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+
+        recyclerView = (RecyclerView) getView().findViewById(R.id.ListRecyclerview);
+
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(lm);
+
+
+        this.adapter = new ListAdapter(getActivity(), categories);
+
+        recyclerView.setAdapter(adapter);
+
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -71,6 +96,23 @@ public class ListFragment extends Fragment {
 //        }
 //    }
 
+    public ArrayList<Category> Makecategories(){
+
+        Category trade = new Category("쇼핑", R.drawable.ic_bulletinlist_cart);
+        Category exam = new Category("시험", R.drawable.ic_bulletinlist_exam);
+        Category job = new Category("취업", R.drawable.ic_bulletinlist_bag);
+        Category community = new Category("커뮤니티", R.drawable.ic_bulletinlist_com);
+
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(trade);
+        categories.add(exam);
+        categories.add(job);
+        categories.add(community);
+
+        return categories;
+
+
+    }
     @Override
     public void onDetach() {
         super.onDetach();

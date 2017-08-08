@@ -21,6 +21,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     BookmarkFragment bookmarkFragment;
     SettingFragment settingFragment;
 
+
     public PagerAdapter(FragmentManager fm){
 
         super(fm);

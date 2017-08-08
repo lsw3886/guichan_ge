@@ -6,6 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import lsw.guichange.Adapter.PagerAdapter;
 import lsw.guichange.R;
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         startActivity(new Intent(this, SplashActivity.class));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar) ;
+        final TextView menu_title = (TextView) findViewById(R.id.menu_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
