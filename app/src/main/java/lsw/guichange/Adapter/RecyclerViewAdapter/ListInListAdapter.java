@@ -40,7 +40,7 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bulletin_list_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         viewHolder.setOnListItemClickListener(this);
         return viewHolder;
@@ -79,7 +79,7 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
     }
 
     @Override public int getItemCount(){
-        return 4;
+        return bulletins.size();
     }
 
 
