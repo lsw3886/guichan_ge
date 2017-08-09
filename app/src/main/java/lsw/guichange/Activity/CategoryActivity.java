@@ -16,5 +16,8 @@ public class CategoryActivity extends AppCompatActivity {
         String s = extra.getString("category");
         TextView title_view = (TextView) findViewById(R.id.category_activity_title);
         title_view.setText(s);
+
+
+
     }
 }
