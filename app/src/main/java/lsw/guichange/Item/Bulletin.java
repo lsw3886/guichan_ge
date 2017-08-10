@@ -1,5 +1,7 @@
 package lsw.guichange.Item;
 
+import java.util.ArrayList;
+
 /**
  * Created by lsw38 on 2017-08-09.
  */
@@ -10,11 +12,28 @@ public class Bulletin {
     int select_Img;
     String recent_post;
     String Category;
+    ArrayList<Post> posts;
 
     public Bulletin(int bulletin_Img,String Category, String bulletin_Name) {
         Bulletin_Img = bulletin_Img;
         Bulletin_Name = bulletin_Name;
         this.Category = Category;
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
     }
 
     public int getBulletin_Img() {

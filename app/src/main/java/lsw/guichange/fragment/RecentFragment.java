@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import junit.framework.Assert;
@@ -43,7 +44,7 @@ public class RecentFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     NetworkService networkService;
-
+    RecyclerView recyclerView;
     TextView textview;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,6 +72,7 @@ public class RecentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        networkService = ApplicationController.getInstance().getNetworkService();
     }
 
     @Override
@@ -82,9 +84,27 @@ public class RecentFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        textview = (TextView) getView().findViewById(R.id.test);
-        Post post = retrofitTest();
-        textview.setText(post.getSite_name());
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
+
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(lm);
+
+
+
+
+
+
+
+
+//        textview = (TextView) getView().findViewById(R.id.test);
+//        Button button = (Button) getView().findViewById(R.id.testbtn);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                retrofitTest();
+//
+//            }
+//        });
 
 
 
@@ -119,21 +139,33 @@ public class RecentFragment extends Fragment {
     }
 
 
-    public Post retrofitTest(){
-
-        try{
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.86.18.39:8000/").addConverterFactory(GsonConverterFactory.create()).build();
-            NetworkService service = retrofit.create(NetworkService.class);
-            Call<List<Post>> convertedContent = service.get_post();
-            List<Post> posts = convertedContent.execute().body();
-
-            return posts.get(1);
-        }catch (Exception e){
-
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public void retrofitTest(){
+//
+//        Call<List<Post>> versionCall = networkService.get_post();
+//        versionCall.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                if(response.isSuccessful()) {
+//                    List<Post> posts = response.body();
+//
+//                    String version_txt = "";
+//                    for(Post version : posts){
+//                        version_txt += version.getTitle() + "\n";
+//                    }
+//                    textview.setText(version_txt);
+//
+//                } else {
+//                    int StatusCode = response.code();
+//                    Log.i(ApplicationController.TAG, "Status Code : " + StatusCode);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Log.i(ApplicationController.TAG, "Fail Message : " + t.getMessage());
+//            }
+//        });
+//    }
 
 
 }

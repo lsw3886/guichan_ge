@@ -27,51 +27,51 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     ArrayList<Category> categories;
     public ListAdapter(Context mContext, ArrayList<Category> categories ) {
 
-        this.categories = categories;
-        this.mContext = mContext;
+                this.categories = categories;
+                this.mContext = mContext;
 
-    }
+            }
 
-    @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int i){
-        viewHolder.category_title.setText(categories.get(i).getName());
-        viewHolder.category_img.setImageResource(categories.get(i).getImage());
-    }
+            @Override
+            public void onBindViewHolder(final ViewHolder viewHolder, int i){
+                viewHolder.category_title.setText(categories.get(i).getName());
+                viewHolder.category_img.setImageResource(categories.get(i).getImage());
+            }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        viewHolder.setOnListItemClickListener(this);
-        return viewHolder;
-    }
+            @Override
+            public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+                View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(v);
+                viewHolder.setOnListItemClickListener(this);
+                return viewHolder;
+            }
 
-    @Override
-    public void onListItemClick(int position){
-        Intent intent = new Intent(mContext, CategoryActivity.class);
-        intent.putExtra("category", categories.get(position).getName());
-        mContext.startActivity(intent);
+            @Override
+            public void onListItemClick(int position){
+                Intent intent = new Intent(mContext, CategoryActivity.class);
+                intent.putExtra("category", categories.get(position).getName());
+                mContext.startActivity(intent);
 
-    }
-    class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView category_img;
-        public TextView category_title;
-        OnListItemClickListener mListner;
+            }
+            class ViewHolder extends RecyclerView.ViewHolder{
+                public ImageView category_img;
+                public TextView category_title;
+                OnListItemClickListener mListner;
 
-        public void setOnListItemClickListener(OnListItemClickListener onListItemClickListener){
-            mListner = onListItemClickListener;
+                public void setOnListItemClickListener(OnListItemClickListener onListItemClickListener){
+                    mListner = onListItemClickListener;
 
-        }
-        public ViewHolder(View itemView){
-            super(itemView);
-            category_img  = (ImageView) itemView.findViewById(R.id.category_image);
-            category_title = (TextView) itemView.findViewById(R.id.category_name);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListner.onListItemClick(getAdapterPosition());
                 }
-            });
+                public ViewHolder(View itemView){
+                    super(itemView);
+                    category_img  = (ImageView) itemView.findViewById(R.id.category_image);
+                    category_title = (TextView) itemView.findViewById(R.id.category_name);
+                    itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mListner.onListItemClick(getAdapterPosition());
+                        }
+                    });
 
 
         }
