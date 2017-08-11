@@ -16,6 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by KJH on 2017-06-06.
@@ -29,7 +30,7 @@ public interface NetworkService {
     Call<List<Post>> get_post();
 
     @GET("/ppompers/{pk}/")
-    Call<Post> get_pk_post(@Path("post") int pk);
+    Call<Post> get_pk_post(@Query("post") int pk);
 
 
 

@@ -2,6 +2,7 @@ package lsw.guichange.Adapter.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +34,22 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i){
+    public void onBindViewHolder(final ViewHolder viewHolder, final int i){
         viewHolder.bulletin_name.setText(bulletins.get(i).getBulletin_Name());
         viewHolder.bulletin_img.setImageResource(bulletins.get(i).getBulletin_Img());
+        viewHolder.isBulletin_selected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bulletins.get(i).getIschecked() == 0){
+                    bulletins.get(i).setIschecked(1);
+                    viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_unselect);
+
+                }else{
+                    bulletins.get(i).setIschecked(0);
+                    viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_select);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,14 +62,13 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
 
     @Override
     public void onListItemClick(int position){
-//        Intent intent = new Intent(mContext, CategoryActivity.class);
-//        intent.putExtra("category", categories.get(position).getName());
-//        mContext.startActivity(intent);
+
 
     }
     class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView bulletin_img;
         public TextView bulletin_name;
+        public ImageView isBulletin_selected;
         OnListItemClickListener mListner;
 
         public void setOnListItemClickListener(OnListItemClickListener onListItemClickListener){
@@ -66,10 +79,11 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
             super(itemView);
             bulletin_img  = (ImageView) itemView.findViewById(R.id.bulletin_image);
             bulletin_name = (TextView) itemView.findViewById(R.id.bulletin_name);
+            isBulletin_selected = (ImageView) itemView.findViewById(R.id.is_bulletin_selected);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mListner.onListItemClick(getAdapterPosition());
+//                    mListner.onListItemClick(getAdapterPosition());
                 }
             });
 

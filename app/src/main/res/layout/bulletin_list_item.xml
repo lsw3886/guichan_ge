@@ -23,6 +23,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:id="@+id/is_bulletin_selected"
             android:src="@drawable/ic_bulletinlist_select"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"

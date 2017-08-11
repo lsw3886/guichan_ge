@@ -1,6 +1,7 @@
 package lsw.guichange.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         menu_title = (TextView) findViewById(R.id.menu_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_main_list));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_main_recent));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_main_bookmark));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_main_setting));
+        tabLayout.addTab(tabLayout.newTab().setText("게시판"));
+        tabLayout.addTab(tabLayout.newTab().setText("나의 게시판"));
+        tabLayout.addTab(tabLayout.newTab().setText("북마크"));
+        tabLayout.addTab(tabLayout.newTab().setText("설정"));
+        tabLayout.setTabTextColors(Color.WHITE, Color.rgb(255, 171, 0));
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 

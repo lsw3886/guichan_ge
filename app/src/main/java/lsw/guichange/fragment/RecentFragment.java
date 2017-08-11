@@ -17,12 +17,15 @@ import junit.framework.Assert;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lsw.guichange.Adapter.RecyclerViewAdapter.ListAdapter;
+import lsw.guichange.Adapter.RecyclerViewAdapter.RecentAdapter;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Controller.NetworkService;
 import lsw.guichange.Item.Post;
+import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +49,8 @@ public class RecentFragment extends Fragment {
     NetworkService networkService;
     RecyclerView recyclerView;
     TextView textview;
+    RecentAdapter adapter;
+    ArrayList<RecentBulletin> bulletins;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -85,9 +90,12 @@ public class RecentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
-
+        bulletins = new ArrayList<>();
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
+        this.adapter = new RecentAdapter(getActivity(), bulletins);
+
+        recyclerView.setAdapter(adapter);
 
 
 
