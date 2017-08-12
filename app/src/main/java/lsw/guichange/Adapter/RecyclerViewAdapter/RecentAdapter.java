@@ -28,7 +28,7 @@ public class RecentAdapter  extends RecyclerView.Adapter<RecentAdapter.ViewHolde
     Context mContext;
     ArrayList<RecentBulletin> choiced_bulletins;
     ApplicationController application;
-    public RecentAdapter(Context mContext, ArrayList<RecentBulletin> bulletins ) {
+    public RecentAdapter(Context mContext) {
         application = ApplicationController.getInstance();
         this.choiced_bulletins = application.getChoiced_bulletins();
         this.mContext = mContext;

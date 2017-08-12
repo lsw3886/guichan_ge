@@ -29,9 +29,9 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
     Context mContext;
     ArrayList<Bulletin> bulletins;
     ApplicationController application;
-    public ListInListAdapter(Context mContext, ArrayList<Bulletin> bulletins ) {
+    public ListInListAdapter(Context mContext, String s) {
         application = ApplicationController.getInstance();
-        this.bulletins = bulletins;
+        this.bulletins = application.setBulletins(s);
         this.mContext = mContext;
 
     }
@@ -41,6 +41,12 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
     public void onBindViewHolder(final ViewHolder viewHolder, final int i){
         viewHolder.bulletin_name.setText(bulletins.get(i).getBulletin_Name());
         viewHolder.bulletin_img.setImageResource(bulletins.get(i).getBulletin_Img());
+        if(bulletins.get(i).getIschecked() == 0){
+            viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_select);
+
+        }else{
+            viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_unselect);
+        }
         viewHolder.isBulletin_selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +59,8 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
                 }else{
                     bulletins.get(i).setIschecked(0);
                     viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_select);
+                    application.removeRecentBulletins(bulletins.get(i));
+
                 }
             }
         });

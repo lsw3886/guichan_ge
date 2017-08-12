@@ -48,9 +48,7 @@ public class RecentFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     NetworkService networkService;
     RecyclerView recyclerView;
-    TextView textview;
     RecentAdapter adapter;
-    ArrayList<RecentBulletin> bulletins;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -90,10 +88,9 @@ public class RecentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
-        bulletins = new ArrayList<>();
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
-        this.adapter = new RecentAdapter(getActivity(), bulletins);
+        this.adapter = new RecentAdapter(getActivity());
 
         recyclerView.setAdapter(adapter);
 
