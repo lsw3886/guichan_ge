@@ -18,6 +18,7 @@ import lsw.guichange.R;
 public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     TextView menu_title;
+    PagerAdapter pagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        pagerAdapter.notifyDataSetChanged();
+
+    }
     protected void changeTitle(int position){
         switch (position){
 

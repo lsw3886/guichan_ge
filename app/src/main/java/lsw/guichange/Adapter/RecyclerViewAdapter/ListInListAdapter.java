@@ -13,9 +13,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lsw.guichange.Activity.CategoryActivity;
+import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
+import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
 
 /**
@@ -26,12 +28,14 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
 
     Context mContext;
     ArrayList<Bulletin> bulletins;
+    ApplicationController application;
     public ListInListAdapter(Context mContext, ArrayList<Bulletin> bulletins ) {
-
+        application = ApplicationController.getInstance();
         this.bulletins = bulletins;
         this.mContext = mContext;
 
     }
+
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i){
@@ -43,6 +47,8 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
                 if(bulletins.get(i).getIschecked() == 0){
                     bulletins.get(i).setIschecked(1);
                     viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_unselect);
+                    RecentBulletin recentBulletin = new RecentBulletin(bulletins.get(i).getBulletin_Img(), bulletins.get(i).getCategory(), bulletins.get(i).getBulletin_Name());
+                    application.setChoiced_bulletins(recentBulletin);
 
                 }else{
                     bulletins.get(i).setIschecked(0);

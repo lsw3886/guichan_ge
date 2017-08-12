@@ -12,6 +12,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.Interface.OnRecentItemClickListener;
 import lsw.guichange.Item.Bulletin;
@@ -26,9 +27,10 @@ public class RecentAdapter  extends RecyclerView.Adapter<RecentAdapter.ViewHolde
 
     Context mContext;
     ArrayList<RecentBulletin> choiced_bulletins;
+    ApplicationController application;
     public RecentAdapter(Context mContext, ArrayList<RecentBulletin> bulletins ) {
-
-        this.choiced_bulletins = bulletins;
+        application = ApplicationController.getInstance();
+        this.choiced_bulletins = application.getChoiced_bulletins();
         this.mContext = mContext;
 
     }

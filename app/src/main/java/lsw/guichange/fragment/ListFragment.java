@@ -24,7 +24,7 @@ public class ListFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    ArrayList<Category> categories;
+//    ArrayList<Category> categories;
     RecyclerView recyclerView;
     ListAdapter adapter;
     // TODO: Rename and change types of parameters
@@ -40,7 +40,7 @@ public class ListFragment extends Fragment {
 
     public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
-        fragment.categories = fragment.Makecategories();
+//        fragment.categories = fragment.Makecategories();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -73,7 +73,7 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(lm);
 
 
-        this.adapter = new ListAdapter(getActivity(), categories);
+        this.adapter = new ListAdapter(getActivity());
 
         recyclerView.setAdapter(adapter);
 
@@ -96,23 +96,7 @@ public class ListFragment extends Fragment {
 //        }
 //    }
 
-    public ArrayList<Category> Makecategories(){
 
-        Category trade = new Category("쇼핑", R.drawable.ic_bulletinlist_cart);
-        Category exam = new Category("시험", R.drawable.ic_bulletinlist_exam);
-        Category job = new Category("취업", R.drawable.ic_bulletinlist_bag);
-        Category community = new Category("커뮤니티", R.drawable.ic_bulletinlist_com);
-
-        ArrayList<Category> categories = new ArrayList<>();
-        categories.add(trade);
-        categories.add(exam);
-        categories.add(job);
-        categories.add(community);
-
-        return categories;
-
-
-    }
     @Override
     public void onDetach() {
         super.onDetach();

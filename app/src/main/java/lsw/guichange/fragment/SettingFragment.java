@@ -21,7 +21,6 @@ public class SettingFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    ArrayList<Category> categories;
     RecyclerView recyclerView;
     ListAdapter adapter;
     // TODO: Rename and change types of parameters
@@ -36,7 +35,7 @@ public class SettingFragment extends Fragment {
 
     public static SettingFragment newInstance() {
         SettingFragment fragment = new SettingFragment();
-        fragment.categories = fragment.Makecategories();
+//        fragment.categories = fragment.Makecategories();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -69,7 +68,7 @@ public class SettingFragment extends Fragment {
         recyclerView.setLayoutManager(lm);
 
 
-        this.adapter = new ListAdapter(getActivity(), categories);
+        this.adapter = new ListAdapter(getActivity(), Makecategories());
 
         recyclerView.setAdapter(adapter);
 
@@ -91,7 +90,7 @@ public class SettingFragment extends Fragment {
 //                    + " must implement OnFragmentInteractionListener");
 //        }
 //    }
-public ArrayList<Category> Makecategories(){
+    public ArrayList<Category> Makecategories(){
 
     Category help = new Category("도움말", R.drawable.ic_bulletinlist_cart);
     Category developer = new Category("To. 개발자", R.drawable.ic_bulletinlist_exam);

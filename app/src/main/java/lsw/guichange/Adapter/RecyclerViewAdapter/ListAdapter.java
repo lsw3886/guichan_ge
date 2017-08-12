@@ -10,9 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 
 import lsw.guichange.Activity.CategoryActivity;
+import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.Item.Category;
 import lsw.guichange.R;
@@ -24,15 +26,21 @@ import lsw.guichange.R;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements OnListItemClickListener{
 
     Context mContext;
+    ApplicationController application = ApplicationController.getInstance();
     ArrayList<Category> categories;
-    public ListAdapter(Context mContext, ArrayList<Category> categories ) {
+            public ListAdapter(Context mContext) {
+                this.categories = application.categories;
+                this.mContext = mContext;
 
+            }
+            public ListAdapter(Context mContext, ArrayList<Category> categories) {
                 this.categories = categories;
                 this.mContext = mContext;
 
             }
 
-            @Override
+
+    @Override
             public void onBindViewHolder(final ViewHolder viewHolder, int i){
                 viewHolder.category_title.setText(categories.get(i).getName());
                 viewHolder.category_img.setImageResource(categories.get(i).getImage());

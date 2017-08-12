@@ -157,8 +157,8 @@ public class RecentFragment extends Fragment {
 //                    List<Post> posts = response.body();
 //
 //                    String version_txt = "";
-//                    for(Post version : posts){
-//                        version_txt += version.getTitle() + "\n";
+//                    for(Post x : posts){
+//                        version_txt += x.getTitle() + "\n";
 //                    }
 //                    textview.setText(version_txt);
 //

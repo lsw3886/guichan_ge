@@ -18,6 +18,7 @@ public class CategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ListInListAdapter adapter;
     ArrayList<Bulletin> bulletins;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
