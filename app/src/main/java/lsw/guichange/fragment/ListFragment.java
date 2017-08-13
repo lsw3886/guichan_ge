@@ -73,7 +73,7 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(lm);
 
 
-        this.adapter = new ListAdapter(getActivity());
+        this.adapter = new ListAdapter(getActivity(), 0);
 
         recyclerView.setAdapter(adapter);
 

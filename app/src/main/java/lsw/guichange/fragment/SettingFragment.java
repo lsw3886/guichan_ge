@@ -68,7 +68,7 @@ public class SettingFragment extends Fragment {
         recyclerView.setLayoutManager(lm);
 
 
-        this.adapter = new ListAdapter(getActivity(), Makecategories());
+        this.adapter = new ListAdapter(getActivity(), Makecategories(), 1);
 
         recyclerView.setAdapter(adapter);
 

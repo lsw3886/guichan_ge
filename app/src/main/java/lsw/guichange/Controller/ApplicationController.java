@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
+import lsw.guichange.Item.Post;
 import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
 import retrofit2.Retrofit;
@@ -26,6 +27,7 @@ public class ApplicationController extends Application {
     public ArrayList<Bulletin> community_bulletins;
     public ArrayList<Bulletin> shopping_bulletins;
     public ArrayList<Category> categories;
+    public ArrayList<Post> Bookmarks;
     ArrayList<RecentBulletin> choiced_bulletins;
 
     @Override
@@ -38,10 +40,17 @@ public class ApplicationController extends Application {
         this.community_bulletins = Makebulletins("커뮤니티");
         categories = Makecategories();
         this.choiced_bulletins = new ArrayList<>();
+        this.Bookmarks = new ArrayList<>();
 
     }
 
-
+    public void addBookmark(String bulletinName, int bulletinImg, Post post){
+        Post bookmark;
+        bookmark = post;
+        bookmark.setBulletinImg(bulletinImg);
+        bookmark.setBulletinTitle(bulletinName);
+        Bookmarks.add(bookmark);
+    }
 
     public ArrayList<RecentBulletin> getChoiced_bulletins() {
         return choiced_bulletins;
@@ -50,8 +59,40 @@ public class ApplicationController extends Application {
     public void setChoiced_bulletins(RecentBulletin choiced_bulletin) {
         this.choiced_bulletins.add(choiced_bulletin);
     }
-    public void deleteChoiced_bulletins(RecentBulletin choiced_bulletin){
-        this.choiced_bulletins.remove(choiced_bulletins);
+
+    public ArrayList<Post> getBookmarks() {
+        return Bookmarks;
+    }
+
+    public void setBookmarks(ArrayList<Post> bookmarks) {
+        Bookmarks = bookmarks;
+    }
+
+
+    public void deleteChoiced_bulletins(String s){
+        for(int x = 0; x < choiced_bulletins.size(); x++){
+            if(choiced_bulletins.get(x).getBulletin_Name().equals(s)){
+                choiced_bulletins.remove(x);
+            }
+        }
+    }
+    public boolean isBulletinInBookmark(String s){
+        for(int x = 0; x < Bookmarks.size(); x++){
+            if(Bookmarks.get(x).getTitle().equals(s)){
+                return true;
+            }
+
+        }
+        return false;
+    }
+    public boolean isBulletinInChoicedBulletins(String s){
+        for(int x = 0; x < choiced_bulletins.size(); x++){
+            if(choiced_bulletins.get(x).getBulletin_Name().equals(s)){
+                return true;
+            }
+
+        }
+        return false;
     }
 
     public static ApplicationController getInstance(){

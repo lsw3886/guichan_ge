@@ -15,39 +15,63 @@
         android:layout_marginRight="5dp">
 
         <ImageView
-            android:id="@+id/recent_bulletin_image"
+            android:id="@+id/Bookmark_bulletin_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
 
         <TextView
-            android:id="@+id/recent_bulletin_name"
+            android:id="@+id/Bookmark_bulletin_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/recent_bulletin_image"
+            android:layout_toRightOf="@id/Bookmark_bulletin_image"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/recent_bulletin_content"
-            android:layout_width="wrap_content"
+            android:id="@+id/Bookmark_bulletin_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recent_bulletin_name"
+            android:layout_below="@id/Bookmark_bulletin_name"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="7dp"
-            android:layout_toRightOf="@id/recent_bulletin_image"
+            android:layout_toRightOf="@id/Bookmark_bulletin_image"
             android:textSize="13sp" />
 
         <ImageView
-            android:id="@+id/recent_bulletin_item_delete"
+            android:id="@+id/Bookmark_bulletin_item_delete"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_recent_delete" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:textSize="10sp"
+            android:background="@color/colorAccentFallback"
+            android:textColor="@color/None"
+            android:id="@+id/Bookmark_comment"
+            android:text="10"
+            android:layout_toRightOf="@id/Bookmark_bulletin_content"
+            android:layout_below="@id/Bookmark_bulletin_name"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:text="오후 10시"
+            android:id="@+id/Bookmark_date"
+            android:layout_toRightOf="@id/Bookmark_bulletin_content"
+            android:layout_below="@id/Bookmark_comment" />
 
 
     </RelativeLayout>

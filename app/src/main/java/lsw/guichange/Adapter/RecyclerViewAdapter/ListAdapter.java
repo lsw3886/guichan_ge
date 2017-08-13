@@ -28,19 +28,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     Context mContext;
     ApplicationController application = ApplicationController.getInstance();
     ArrayList<Category> categories;
-            public ListAdapter(Context mContext) {
+    int type;
+            public ListAdapter(Context mContext, int type) {
                 this.categories = application.categories;
                 this.mContext = mContext;
+                this.type = type;
 
             }
-            public ListAdapter(Context mContext, ArrayList<Category> categories) {
+            public ListAdapter(Context mContext, ArrayList<Category> categories, int type) {
                 this.categories = categories;
                 this.mContext = mContext;
+                this.type = type;
 
             }
 
 
-    @Override
+            @Override
             public void onBindViewHolder(final ViewHolder viewHolder, int i){
                 viewHolder.category_title.setText(categories.get(i).getName());
                 viewHolder.category_img.setImageResource(categories.get(i).getImage());
@@ -56,10 +59,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
 
             @Override
             public void onListItemClick(int position){
-                Intent intent = new Intent(mContext, CategoryActivity.class);
-                intent.putExtra("category", categories.get(position).getName());
-                mContext.startActivity(intent);
-
+                if(type == 0) {
+                    Intent intent = new Intent(mContext, CategoryActivity.class);
+                    intent.putExtra("category", categories.get(position).getName());
+                    mContext.startActivity(intent);
+                }
             }
             class ViewHolder extends RecyclerView.ViewHolder{
                 public ImageView category_img;

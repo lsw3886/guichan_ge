@@ -7,9 +7,36 @@ package lsw.guichange.Item;
 public class Post {
     String site_name;
     String link;
-    int comment;
+    String comment;
     int post_num;
     String title;
+    String date;
+    int BulletinImg;
+    String BulletinTitle;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getBulletinImg() {
+        return BulletinImg;
+    }
+
+    public void setBulletinImg(int bulletinImg) {
+        BulletinImg = bulletinImg;
+    }
+
+    public String getBulletinTitle() {
+        return BulletinTitle;
+    }
+
+    public void setBulletinTitle(String bulletinTitle) {
+        BulletinTitle = bulletinTitle;
+    }
 
     public String getSite_name() {
         return site_name;
@@ -27,11 +54,11 @@ public class Post {
         this.link = link;
     }
 
-    public int getComment() {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(int comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 

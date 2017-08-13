@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,17 +51,14 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
         viewHolder.isBulletin_selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bulletins.get(i).getIschecked() == 0){
-                    bulletins.get(i).setIschecked(1);
-                    viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_unselect);
+
+                if(application.isBulletinInChoicedBulletins(bulletins.get(i).getBulletin_Name()) == false){
                     RecentBulletin recentBulletin = new RecentBulletin(bulletins.get(i).getBulletin_Img(), bulletins.get(i).getCategory(), bulletins.get(i).getBulletin_Name());
                     application.setChoiced_bulletins(recentBulletin);
+                    Toast.makeText(mContext, "나의 게시판에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    bulletins.get(i).setIschecked(0);
-                    viewHolder.isBulletin_selected.setImageResource(R.drawable.ic_bulletinlist_select);
-                    application.removeRecentBulletins(bulletins.get(i));
-
+                    Toast.makeText(mContext,"이미 추가 되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

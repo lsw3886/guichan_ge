@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import lsw.guichange.Adapter.RecyclerViewAdapter.BookmarkAdapter;
 import lsw.guichange.R;
 
 public class BookmarkFragment extends Fragment {
@@ -15,6 +18,8 @@ public class BookmarkFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    RecyclerView recyclerView;
+    BookmarkAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,6 +64,16 @@ public class BookmarkFragment extends Fragment {
         }
     }
 
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        recyclerView = (RecyclerView) getView().findViewById(R.id.bookmark_recyclerview);
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(lm);
+        this.adapter = new BookmarkAdapter(getActivity());
+
+        recyclerView.setAdapter(adapter);
+    }
 //    @Override
 //    public void onAttach(Context context) {
 //        super.onAttach(context);

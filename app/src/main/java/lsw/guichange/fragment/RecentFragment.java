@@ -49,6 +49,8 @@ public class RecentFragment extends Fragment {
     NetworkService networkService;
     RecyclerView recyclerView;
     RecentAdapter adapter;
+    ApplicationController application;
+    TextView textview;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -71,6 +73,7 @@ public class RecentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        application = ApplicationController.getInstance();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -81,18 +84,25 @@ public class RecentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recent, container, false);
+
+         return inflater.inflate(R.layout.fragment_recent, container, false);
+
     }
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+            if(application.getChoiced_bulletins().size() != 0) {
+                recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
+                LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(lm);
+                this.adapter = new RecentAdapter(getActivity());
 
-        recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
-        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(lm);
-        this.adapter = new RecentAdapter(getActivity());
+                recyclerView.setAdapter(adapter);
+            }else{
+                textview= (TextView) getView().findViewById(R.id.recent_none_item);
+                textview.setText("게시판 탭에서 소식받을 게시판을 추가해 주세요.");
 
-        recyclerView.setAdapter(adapter);
+            }
+
 
 
 
