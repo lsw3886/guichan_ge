@@ -55,13 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             public void onClick(View view) {
 
                 if(application.isBulletinInBookmark(posts.get(i).getTitle()) == false){
-                    Post bookmarkedPosts = new Post();
-                    bookmarkedPosts.setBulletinTitle(title);
-                    bookmarkedPosts.setBulletinImg(bulletin_img);
-                    bookmarkedPosts.setComment(posts.get(i).getComment());
-                    bookmarkedPosts.setLink(posts.get(i).getLink());
-                    bookmarkedPosts.setTitle(posts.get(i).getTitle());
-                    application.Bookmarks.add(bookmarkedPosts);
+                    application.addBookmark(title, bulletin_img, posts.get(i));
                     Toast.makeText(mContext, "북마크에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }

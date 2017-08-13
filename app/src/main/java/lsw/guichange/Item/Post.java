@@ -14,8 +14,19 @@ public class Post {
     int BulletinImg;
     String BulletinTitle;
 
+    public Post() {
+    }
+
     public String getDate() {
         return date;
+    }
+
+    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle) {
+        this.link = link;
+        this.comment = comment;
+        this.title = title;
+        BulletinImg = bulletinImg;
+        BulletinTitle = bulletinTitle;
     }
 
     public void setDate(String date) {

@@ -59,6 +59,7 @@ public class RecentFragment extends Fragment {
 
     public RecentFragment() {
         // Required empty public constructor
+
     }
 
     public static RecentFragment newInstance() {

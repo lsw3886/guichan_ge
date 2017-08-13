@@ -2,11 +2,14 @@ package lsw.guichange.Controller;
 
 import android.app.Application;
 import android.app.admin.NetworkEvent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import lsw.guichange.DB.DBHelper;
 import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
 import lsw.guichange.Item.Post;
@@ -29,6 +32,7 @@ public class ApplicationController extends Application {
     public ArrayList<Category> categories;
     public ArrayList<Post> Bookmarks;
     ArrayList<RecentBulletin> choiced_bulletins;
+    DBHelper dbHelper;
 
     @Override
     public void onCreate(){
@@ -41,16 +45,68 @@ public class ApplicationController extends Application {
         categories = Makecategories();
         this.choiced_bulletins = new ArrayList<>();
         this.Bookmarks = new ArrayList<>();
+        dbHelper = new DBHelper(this);
+        choicedBulletin_init();
+        BookmarkInit();
+
+
+
 
     }
+
+    public void BookmarkInit(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Post post;
+        Cursor rs = db.rawQuery("select * from Bookmark;", null);
+        while(rs.moveToNext()){
+            String sitename = rs.getString(0);
+            String link = rs.getString(1);
+            String comment = rs.getString(2);
+            String postnum = rs.getString(3);
+            String title = rs.getString(4);
+            String date = rs.getString(5);
+            int bimg = rs.getInt(6);
+            String btitle = rs.getString(7);
+            post = new Post(link, comment, title, bimg, btitle);
+            Bookmarks.add(post);
+
+        }
+    }
+
 
     public void addBookmark(String bulletinName, int bulletinImg, Post post){
-        Post bookmark;
-        bookmark = post;
-        bookmark.setBulletinImg(bulletinImg);
-        bookmark.setBulletinTitle(bulletinName);
-        Bookmarks.add(bookmark);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg,bulletinName);
+        String query = "insert into Bookmark values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"null ,"+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+        db.execSQL(query);
+        Bookmarks.add(bpost);
+
     }
+    public void removeBookmark(Post post){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String link = post.getLink();
+        String query;
+        query = "delete from Bookmark where link = " + "\"" + link + "\""+ ";";
+        db.execSQL(query);
+        Bookmarks.remove(post);
+
+    };
+
+    public void choicedBulletin_init(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        RecentBulletin recentBulletin;
+        Cursor rs = db.rawQuery("select * from RecentBulletin;", null);
+        while(rs.moveToNext()){
+            int img = rs.getInt(0);
+            String category = rs.getString(1);
+            String name = rs.getString(2);
+            recentBulletin = new RecentBulletin(img, category, name);
+            choiced_bulletins.add(recentBulletin);
+
+        }
+    }
+
+
 
     public ArrayList<RecentBulletin> getChoiced_bulletins() {
         return choiced_bulletins;
@@ -58,6 +114,9 @@ public class ApplicationController extends Application {
 
     public void setChoiced_bulletins(RecentBulletin choiced_bulletin) {
         this.choiced_bulletins.add(choiced_bulletin);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into RecentBulletin values("+choiced_bulletin.getBulletin_Img()+", " + "\"" + choiced_bulletin.getCategory()+ "\""+", "+"\""+ choiced_bulletin.getBulletin_Name()+"\"" +");");
+
     }
 
     public ArrayList<Post> getBookmarks() {
@@ -70,8 +129,12 @@ public class ApplicationController extends Application {
 
 
     public void deleteChoiced_bulletins(String s){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query;
         for(int x = 0; x < choiced_bulletins.size(); x++){
             if(choiced_bulletins.get(x).getBulletin_Name().equals(s)){
+                query = "delete from RecentBulletin where name = " + "\"" + s + "\""+ ";";
+                db.execSQL(query);
                 choiced_bulletins.remove(x);
             }
         }
