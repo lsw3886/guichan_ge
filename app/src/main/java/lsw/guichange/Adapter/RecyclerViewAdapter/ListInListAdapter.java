@@ -2,6 +2,7 @@ package lsw.guichange.Adapter.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import lsw.guichange.Activity.CategoryActivity;
 import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.DB.DBHelper;
 import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
@@ -26,7 +28,7 @@ import lsw.guichange.R;
  */
 
 public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.ViewHolder> implements OnListItemClickListener{
-
+    DBHelper dbHelper;
     Context mContext;
     ArrayList<Bulletin> bulletins;
     ApplicationController application;
@@ -55,6 +57,7 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
                 if(application.isBulletinInChoicedBulletins(bulletins.get(i).getBulletin_Name()) == false){
                     RecentBulletin recentBulletin = new RecentBulletin(bulletins.get(i).getBulletin_Img(), bulletins.get(i).getCategory(), bulletins.get(i).getBulletin_Name());
                     application.setChoiced_bulletins(recentBulletin);
+                    application.makePostDB(bulletins.get(i).getBulletin_Name());
                     Toast.makeText(mContext, "나의 게시판에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }else{
@@ -107,6 +110,8 @@ public class ListInListAdapter extends RecyclerView.Adapter<ListInListAdapter.Vi
     @Override public int getItemCount(){
         return bulletins.size();
     }
+
+
 
 
 }

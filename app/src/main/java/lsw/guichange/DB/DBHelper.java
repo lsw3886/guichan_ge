@@ -25,8 +25,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(choicedBulletin);
         db.execSQL(bookMark);
 
-        db.execSQL("insert into RecentBulletin values(null, 'ddd', 'ccc');");
-
     }
 
     @Override

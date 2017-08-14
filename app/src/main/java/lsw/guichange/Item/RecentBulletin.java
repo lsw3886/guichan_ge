@@ -11,7 +11,8 @@ public class RecentBulletin {
     String Bulletin_Name;
     String recent_post;
     String Category;
-    ArrayList<Post> posts;
+    Post RecentPosts;
+
     int newCount;
 
     public int getNewCount() {
@@ -43,12 +44,12 @@ public class RecentBulletin {
         Category = category;
     }
 
-    public ArrayList<Post> getPosts() {
-        return posts;
+    public Post getRecentPosts() {
+        return RecentPosts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
+    public void setRecentPosts(Post recentPosts) {
+        RecentPosts = recentPosts;
     }
 
     public int getBulletin_Img() {

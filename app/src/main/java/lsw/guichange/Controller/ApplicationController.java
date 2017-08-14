@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import lsw.guichange.DB.DBHelper;
 import lsw.guichange.Item.Bulletin;
@@ -15,6 +17,9 @@ import lsw.guichange.Item.Category;
 import lsw.guichange.Item.Post;
 import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -82,6 +87,36 @@ public class ApplicationController extends Application {
         Bookmarks.add(bpost);
 
     }
+
+    public ArrayList<Post> getPosts(String BulletinName){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Post post;
+        ArrayList<Post> posts = new ArrayList<>();
+        Cursor rs = db.rawQuery("select * from " +  BulletinName + ";", null);
+        while(rs.moveToNext()){
+            String sitename = rs.getString(0);
+            String link = rs.getString(1);
+            String comment = rs.getString(2);
+            String postnum = rs.getString(3);
+            String title = rs.getString(4);
+            String date = rs.getString(5);
+            int bimg = rs.getInt(6);
+            String btitle = rs.getString(7);
+            post = new Post(link, comment, title, bimg, btitle);
+            posts.add(post);
+
+        }
+        return posts;
+    }
+
+    public void addPosts(String bulletinName, int bulletinImg, Post post){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg,bulletinName);
+        String query = "insert into "+bulletinName+" values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"null ,"+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+        db.execSQL(query);
+
+    }
+
     public void removeBookmark(Post post){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String link = post.getLink();
@@ -131,10 +166,13 @@ public class ApplicationController extends Application {
     public void deleteChoiced_bulletins(String s){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String query;
+        String postquery;
         for(int x = 0; x < choiced_bulletins.size(); x++){
             if(choiced_bulletins.get(x).getBulletin_Name().equals(s)){
                 query = "delete from RecentBulletin where name = " + "\"" + s + "\""+ ";";
                 db.execSQL(query);
+                postquery = "drop table "+ s + ";";
+                db.execSQL(postquery);
                 choiced_bulletins.remove(x);
             }
         }
@@ -162,8 +200,6 @@ public class ApplicationController extends Application {
         return instance;
 
     }
-
-
 
     private NetworkService networkService;
     public NetworkService getNetworkService(){
@@ -315,5 +351,9 @@ public class ApplicationController extends Application {
 
     }
 
-
+    public void makePostDB(String s){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum VARCHAR(10), title VARCHAR(10), date VARCHAR(20), bimg INTEGER, "+ s + " VARCHAR(5));";
+        db.execSQL(query);
+    }
 }
