@@ -56,7 +56,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         viewHolder.Post_title.setText(this.title);
         viewHolder.Post_content.setText(posts.get(i).getTitle());
         viewHolder.Post_comment.setText(posts.get(i).getComment());
-//        viewHolder.Post_date.setText(String.valueOf(posts.get(i).getDate()));
+//        viewHolder.Post_date.setText(posts.get(i).getDate());
         viewHolder.Post_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +112,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             Post_title = (TextView) itemView.findViewById(R.id.post_bulletin_name);
             Post_content = (TextView) itemView.findViewById(R.id.post_content);
             Post_comment = (TextView) itemView.findViewById(R.id.post_comment);
-            Post_date = (TextView) itemView.findViewById(R.id.post_date);
+            Post_date = (TextView) itemView.findViewById(R.id.ppost_date);
             Post_bookmark = (ImageView) itemView.findViewById(R.id.bookmark_check);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

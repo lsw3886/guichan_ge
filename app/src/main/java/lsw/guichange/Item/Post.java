@@ -10,15 +10,15 @@ public class Post {
     String comment;
     int post_num;
     String title;
-    int date;
     int BulletinImg;
     String BulletinTitle;
+    String date;
 
     public Post() {
     }
 
 
-    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle, int date) {
+    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle, String date) {
         this.link = link;
         this.comment = comment;
         this.date = date;
@@ -26,11 +26,11 @@ public class Post {
         BulletinImg = bulletinImg;
         BulletinTitle = bulletinTitle;
     }
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

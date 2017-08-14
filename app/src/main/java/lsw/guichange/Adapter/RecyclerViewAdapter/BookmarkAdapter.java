@@ -44,7 +44,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         viewHolder.Post_content.setText(bookmarkPosts.get(i).getTitle());
         viewHolder.Post_title.setText(bookmarkPosts.get(i).getBulletinTitle());
         viewHolder.Post_img.setImageResource(bookmarkPosts.get(i).getBulletinImg());
-//        viewHolder.Post_date.setText(String.valueOf(bookmarkPosts.get(i).getDate()));
+//        viewHolder.Post_date.setText(bookmarkPosts.get(i).getDate());
         viewHolder.Post_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

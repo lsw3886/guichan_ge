@@ -69,7 +69,7 @@ public class ApplicationController extends Application {
             String comment = rs.getString(2);
             String postnum = rs.getString(3);
             String title = rs.getString(4);
-            int date = rs.getInt(5);
+            String date = rs.getString(5);
             int bimg = rs.getInt(6);
             String btitle = rs.getString(7);
             post = new Post(link, comment, title, bimg, btitle, date);
@@ -82,7 +82,7 @@ public class ApplicationController extends Application {
     public void addBookmark(String bulletinName, int bulletinImg, Post post){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg,bulletinName, post.getDate());
-        String query = "insert into Bookmark values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+ bpost.getDate()+" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+        String query = "insert into Bookmark values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"\""+ bpost.getDate()+"\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
         db.execSQL(query);
         Bookmarks.add(bpost);
 
@@ -99,7 +99,7 @@ public class ApplicationController extends Application {
             String comment = rs.getString(2);
             String postnum = rs.getString(3);
             String title = rs.getString(4);
-            int date = rs.getInt(5);
+            String date = rs.getString(5);
             int bimg = rs.getInt(6);
             String btitle = rs.getString(7);
             post = new Post(link, comment, title, bimg, btitle, date);
@@ -111,8 +111,8 @@ public class ApplicationController extends Application {
 
     public void addPosts(String bulletinName, int bulletinImg, Post post){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg,bulletinName, post.getDate());
-        String query = "insert into "+bulletinName+" values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+bpost.getDate()+ ", "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg, bulletinName, post.getDate());
+        String query = "insert into "+bulletinName+" values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"\"" +bpost.getDate()+ "\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
         db.execSQL(query);
 
     }
@@ -353,7 +353,7 @@ public class ApplicationController extends Application {
 
     public void makePostDB(String s){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum VARCHAR(10), title VARCHAR(10), date INTEGER, bimg INTEGER, "+ s + " VARCHAR(5));";
+        String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum VARCHAR(10), title VARCHAR(10), date VARCHAR(20), bimg INTEGER, "+ s + " VARCHAR(5));";
         db.execSQL(query);
     }
 }

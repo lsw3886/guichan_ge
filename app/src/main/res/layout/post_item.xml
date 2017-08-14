@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:textSize="7sp"
         android:layout_toRightOf="@id/post_img"
-        android:id="@+id/post_date"
+        android:id="@+id/ppost_date"
         android:layout_below="@id/post_content" />
     <ImageView
         android:layout_width="20dp"
