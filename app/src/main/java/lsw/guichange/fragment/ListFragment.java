@@ -3,6 +3,7 @@ package lsw.guichange.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ public class ListFragment extends Fragment {
 //    ArrayList<Category> categories;
     RecyclerView recyclerView;
     ListAdapter adapter;
+    FloatingActionButton fab;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -65,7 +67,13 @@ public class ListFragment extends Fragment {
     }
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        fab = (FloatingActionButton) getView().findViewById(R.id.floating_Btn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.ListRecyclerview);
 

@@ -13,9 +13,10 @@ import org.w3c.dom.Text;
 
 import lsw.guichange.Adapter.PagerAdapter;
 import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentDataChangeListener {
     ViewPager viewPager;
     TextView menu_title;
     PagerAdapter pagerAdapter;
@@ -96,5 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public void Datachange(){
+        this.pagerAdapter.notifyDataSetChanged();
     }
 }

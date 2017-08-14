@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import lsw.guichange.Activity.CategoryActivity;
 import lsw.guichange.Activity.PostActivity;
 import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.Interface.OnRecentItemClickListener;
 import lsw.guichange.Item.Bulletin;
@@ -33,10 +34,12 @@ public class RecentAdapter  extends RecyclerView.Adapter<RecentAdapter.ViewHolde
     Context mContext;
     ArrayList<RecentBulletin> choiced_bulletins;
     ApplicationController application;
-    public RecentAdapter(Context mContext) {
+    FragmentDataChangeListener mCallback;
+    public RecentAdapter(Context mContext, FragmentDataChangeListener mCallback) {
         application = ApplicationController.getInstance();
         this.choiced_bulletins = application.getChoiced_bulletins();
         this.mContext = mContext;
+        this.mCallback = mCallback;
 
     }
 
@@ -48,6 +51,7 @@ public class RecentAdapter  extends RecyclerView.Adapter<RecentAdapter.ViewHolde
             @Override
             public void onClick(View view) {
                 application.deleteChoiced_bulletins(choiced_bulletins.get(i).getBulletin_Name());
+                mCallback.Datachange();
                 Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }

@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import lsw.guichange.Adapter.RecyclerViewAdapter.BookmarkAdapter;
+import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.R;
 
 public class BookmarkFragment extends Fragment {
@@ -20,7 +23,8 @@ public class BookmarkFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     RecyclerView recyclerView;
     BookmarkAdapter adapter;
-
+    FragmentDataChangeListener mCallback;
+    ApplicationController application;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -34,6 +38,7 @@ public class BookmarkFragment extends Fragment {
 
     public static BookmarkFragment newInstance() {
         BookmarkFragment fragment = new BookmarkFragment();
+        fragment.application = ApplicationController.getInstance();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -58,6 +63,7 @@ public class BookmarkFragment extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -66,24 +72,32 @@ public class BookmarkFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (application.getBookmarks().size() != 0) {
+
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.bookmark_recyclerview);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
-        this.adapter = new BookmarkAdapter(getActivity());
+        this.adapter = new BookmarkAdapter(getActivity(), mCallback);
 
         recyclerView.setAdapter(adapter);
+        }else{
+            TextView textView = (TextView) getView().findViewById(R.id.bookmark_none_item);
+            textView.setText("저장된 북마크가 존재하지 않습니다.");
+
+
+        }
     }
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentDataChangeListener) {
+            mCallback = (FragmentDataChangeListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {

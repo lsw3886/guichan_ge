@@ -10,26 +10,27 @@ public class Post {
     String comment;
     int post_num;
     String title;
-    String date;
+    int date;
     int BulletinImg;
     String BulletinTitle;
 
     public Post() {
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle) {
+    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle, int date) {
         this.link = link;
         this.comment = comment;
+        this.date = date;
         this.title = title;
         BulletinImg = bulletinImg;
         BulletinTitle = bulletinTitle;
     }
+    public int getDate() {
+        return date;
+    }
 
-    public void setDate(String date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

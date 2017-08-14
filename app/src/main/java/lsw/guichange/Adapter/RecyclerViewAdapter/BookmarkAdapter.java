@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import lsw.guichange.Activity.webview;
 import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.Interface.OnPostItemClickListener;
 import lsw.guichange.Item.Post;
 import lsw.guichange.R;
@@ -27,11 +28,13 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     Context mContext;
     ApplicationController application;
     ArrayList<Post> bookmarkPosts;
+    FragmentDataChangeListener mCallback;
     int image;
     int bulletinName;
-    public BookmarkAdapter(Context mContext) {
+    public BookmarkAdapter(Context mContext, FragmentDataChangeListener mCallback) {
         application = ApplicationController.getInstance();
         this.bookmarkPosts = application.getBookmarks();
+        this.mCallback = mCallback;
         this.mContext = mContext;
 
     }
@@ -41,11 +44,13 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         viewHolder.Post_content.setText(bookmarkPosts.get(i).getTitle());
         viewHolder.Post_title.setText(bookmarkPosts.get(i).getBulletinTitle());
         viewHolder.Post_img.setImageResource(bookmarkPosts.get(i).getBulletinImg());
+//        viewHolder.Post_date.setText(String.valueOf(bookmarkPosts.get(i).getDate()));
         viewHolder.Post_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 application.removeBookmark(bookmarkPosts.get(i));
                 notifyDataSetChanged();
+                mCallback.Datachange();
 
             }
         });

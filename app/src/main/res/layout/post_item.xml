@@ -51,16 +51,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="7sp"
-        android:text="오후 10시"
+        android:layout_toRightOf="@id/post_img"
         android:id="@+id/post_date"
-        android:layout_toRightOf="@id/post_content"
-        android:layout_below="@id/post_comment" />
+        android:layout_below="@id/post_content" />
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:id="@+id/bookmark_check"
         android:src="@drawable/ic_post_add"
-        android:layout_toRightOf="@id/post_date"
+        android:layout_toRightOf="@id/post_comment"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"

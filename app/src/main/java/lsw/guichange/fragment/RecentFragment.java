@@ -24,6 +24,7 @@ import lsw.guichange.Adapter.RecyclerViewAdapter.ListAdapter;
 import lsw.guichange.Adapter.RecyclerViewAdapter.RecentAdapter;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Controller.NetworkService;
+import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.Item.Post;
 import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
@@ -51,6 +52,7 @@ public class RecentFragment extends Fragment {
     RecentAdapter adapter;
     ApplicationController application;
     TextView textview;
+    FragmentDataChangeListener mCallback;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -95,7 +97,8 @@ public class RecentFragment extends Fragment {
                 recyclerView = (RecyclerView) getView().findViewById(R.id.recent_recycler);
                 LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(lm);
-                this.adapter = new RecentAdapter(getActivity());
+
+                this.adapter = new RecentAdapter(getActivity(), mCallback);
 
                 recyclerView.setAdapter(adapter);
             }else{
@@ -132,16 +135,16 @@ public class RecentFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentDataChangeListener) {
+            mCallback = (FragmentDataChangeListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {

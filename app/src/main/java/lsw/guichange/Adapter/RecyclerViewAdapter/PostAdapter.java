@@ -56,6 +56,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         viewHolder.Post_title.setText(this.title);
         viewHolder.Post_content.setText(posts.get(i).getTitle());
         viewHolder.Post_comment.setText(posts.get(i).getComment());
+//        viewHolder.Post_date.setText(String.valueOf(posts.get(i).getDate()));
         viewHolder.Post_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
