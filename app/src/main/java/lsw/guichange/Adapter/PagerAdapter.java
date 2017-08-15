@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 import lsw.guichange.fragment.BookmarkFragment;
+import lsw.guichange.fragment.ExpandableListFragment;
 import lsw.guichange.fragment.ListFragment;
 import lsw.guichange.fragment.RecentFragment;
 import lsw.guichange.fragment.SettingFragment;
@@ -20,6 +21,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     RecentFragment recentFragment;
     BookmarkFragment bookmarkFragment;
     SettingFragment settingFragment;
+    ExpandableListFragment expandableListFragment;
 
 
     public PagerAdapter(FragmentManager fm){
@@ -29,7 +31,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         recentFragment = RecentFragment.newInstance();
         bookmarkFragment = BookmarkFragment.newInstance();
         settingFragment = SettingFragment.newInstance();
-
+        expandableListFragment = ExpandableListFragment.newInstance(this);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
             case 0:
 
-                return  listFragment;
+                return  expandableListFragment;
 
 
             case 1:

@@ -37,7 +37,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         application = ApplicationController.getInstance();
-        application.buildNetworkService("32469024.ngrok.io");
+        application.buildNetworkService("601b4e80.ngrok.io");
         networkService = application.getNetworkService();
         Bulletin_posts = new ArrayList<>();
         receivePosts();

@@ -67,12 +67,12 @@ public class ApplicationController extends Application {
             String sitename = rs.getString(0);
             String link = rs.getString(1);
             String comment = rs.getString(2);
-            String postnum = rs.getString(3);
+            int postnum = rs.getInt(3);
             String title = rs.getString(4);
             String date = rs.getString(5);
             int bimg = rs.getInt(6);
             String btitle = rs.getString(7);
-            post = new Post(link, comment, title, bimg, btitle, date);
+            post = new Post(link, comment,postnum, title,date, bimg, btitle);
             Bookmarks.add(post);
 
         }
@@ -81,8 +81,8 @@ public class ApplicationController extends Application {
 
     public void addBookmark(String bulletinName, int bulletinImg, Post post){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg,bulletinName, post.getDate());
-        String query = "insert into Bookmark values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"\""+ bpost.getDate()+"\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+        Post bpost = new Post(post.getLink(),post.getComment(),post.getPost_num(), post.getDate(),post.getTitle(),bulletinImg,bulletinName);
+        String query = "insert into Bookmark values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +bpost.getPost_num()+" ,"+"\""+ bpost.getTitle()+"\", "+"\""+ bpost.getDate()+"\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
         db.execSQL(query);
         Bookmarks.add(bpost);
 
@@ -97,12 +97,12 @@ public class ApplicationController extends Application {
             String sitename = rs.getString(0);
             String link = rs.getString(1);
             String comment = rs.getString(2);
-            String postnum = rs.getString(3);
+            int postnum = rs.getInt(3);
             String title = rs.getString(4);
             String date = rs.getString(5);
             int bimg = rs.getInt(6);
             String btitle = rs.getString(7);
-            post = new Post(link, comment, title, bimg, btitle, date);
+            post = new Post(link, comment, postnum, date, title, bimg, btitle);
             posts.add(post);
 
         }
@@ -110,10 +110,18 @@ public class ApplicationController extends Application {
     }
 
     public void addPosts(String bulletinName, int bulletinImg, Post post){
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Post bpost = new Post(post.getLink(),post.getComment(),post.getTitle(),bulletinImg, bulletinName, post.getDate());
-        String query = "insert into "+bulletinName+" values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +"null ,"+"\""+ bpost.getTitle()+"\", "+"\"" +bpost.getDate()+ "\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
-        db.execSQL(query);
+        SQLiteDatabase db2 = dbHelper.getReadableDatabase();
+        String findQuery = "select max(postnum) from " + bulletinName+";";
+        Cursor rs = db2.query(bulletinName, new String [] {"MAX("+"postnum"+")"}, null, null, null, null, null);
+        rs.moveToFirst();
+        int lastPostNum = rs.getInt(0);
+        if (post.getPost_num() > lastPostNum){
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            Post bpost = new Post(post.getLink(),post.getComment(),post.getPost_num(), post.getDate(),post.getTitle(),bulletinImg, bulletinName);
+            String query = "insert into "+bulletinName+" values(null"+", " + "\"" + bpost.getLink()+ "\""+", "+"\""+ bpost.getComment()+"\", " +bpost.getPost_num()+" ,"+"\""+ bpost.getTitle()+"\", "+"\"" +bpost.getDate()+ "\" , "+ bpost.getBulletinImg()+", "+ "\""+ bpost.getBulletinTitle()+"\""+");";
+            db.execSQL(query);
+        }
+
 
     }
 
@@ -353,7 +361,7 @@ public class ApplicationController extends Application {
 
     public void makePostDB(String s){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum VARCHAR(10), title VARCHAR(10), date VARCHAR(20), bimg INTEGER, "+ s + " VARCHAR(5));";
+        String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum VARCHAR(10), title VARCHAR(10), bdate VARCHAR(20), bimg INTEGER, "+ s + " VARCHAR(5));";
         db.execSQL(query);
     }
 }

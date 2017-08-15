@@ -8,23 +8,25 @@ public class Post {
     String site_name;
     String link;
     String comment;
-    int post_num;
+    int post_num = 0;
     String title;
+    String date;
     int BulletinImg;
     String BulletinTitle;
-    String date;
 
     public Post() {
     }
 
 
-    public Post(String link, String comment, String title, int bulletinImg, String bulletinTitle, String date) {
+    public Post(String link, String comment, int post_num, String date, String title, int bulletinImg, String bulletinTitle) {
         this.link = link;
         this.comment = comment;
-        this.date = date;
+        this.post_num = post_num;
         this.title = title;
         BulletinImg = bulletinImg;
         BulletinTitle = bulletinTitle;
+        this.date = date;
+
     }
     public String getDate() {
         return date;
