@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
-        android:layout_marginLeft="35dp"
         android:layout_marginRight="10dp"
         app:cardUseCompatPadding="true">
         <RelativeLayout
@@ -27,13 +26,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_arrow_ac"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/group_indicator"-->
+                <!--android:src="@drawable/ic_expandable_arrowdown"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--/>-->
 
             <TextView
                 android:layout_width="wrap_content"

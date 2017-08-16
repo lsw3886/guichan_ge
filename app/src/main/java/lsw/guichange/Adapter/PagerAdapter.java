@@ -31,7 +31,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         recentFragment = RecentFragment.newInstance();
         bookmarkFragment = BookmarkFragment.newInstance();
         settingFragment = SettingFragment.newInstance();
-        expandableListFragment = ExpandableListFragment.newInstance(this);
+//        expandableListFragment = ExpandableListFragment.newInstance(this);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
             case 0:
 
-                return  expandableListFragment;
+                return listFragment;
 
 
             case 1:

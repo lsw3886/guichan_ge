@@ -5,14 +5,14 @@ package lsw.guichange.Item;
  */
 
 public class Post {
-    String site_name;
-    String link;
-    String comment;
-    int post_num = 0;
-    String title;
-    String date;
-    int BulletinImg;
-    String BulletinTitle;
+    public String site_name;
+    public String link;
+    public String comment;
+    public int post_num = 0;
+    public String title;
+    public String date;
+    public int BulletinImg;
+    public String BulletinTitle;
 
     public Post() {
     }

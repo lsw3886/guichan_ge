@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String choicedBulletin= "CREATE TABLE RecentBulletin(img INTEGER, category VARCHAR(20), name VARCHAR(20));";
-        String bookMark = "CREATE TABLE Bookmark(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum INTEGER, title VARCHAR(10), bdate VARCHAR(20), bimg INTEGER, btitle VARCHAR(5));";
+        String bookMark = "CREATE TABLE Bookmark(sitename TEXT, link TEXT, comment TEXT, title TEXT, bdate TEXT, bimg INTEGER, btitle TEXT);";
 
 
         db.execSQL(choicedBulletin);

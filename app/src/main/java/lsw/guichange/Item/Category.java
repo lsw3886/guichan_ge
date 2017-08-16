@@ -11,9 +11,18 @@ public class Category {
     public String name;
     public int image;
     public List<Bulletin> bItems;
+    public int ischecked = 0;
 
     public List<Bulletin> getbItems() {
         return bItems;
+    }
+
+    public int getIschecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(int ischecked) {
+        this.ischecked = ischecked;
     }
 
     public void setbItems(List<Bulletin> bItems) {

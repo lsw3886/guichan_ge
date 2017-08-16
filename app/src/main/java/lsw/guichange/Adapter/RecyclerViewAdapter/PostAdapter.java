@@ -39,11 +39,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     ArrayList<Post> posts;
     int bulletin_img;
     String title;
+    String content;
     public PostAdapter(Context mContext, int img, String title, ArrayList<Post> posts) {
         this.mContext = mContext;
         this.posts = posts;
         this.bulletin_img = img;
         this.title = title;
+        this.content = "hello";
     }
 
     public void setPosts(ArrayList<Post> posts) {
@@ -62,7 +64,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             public void onClick(View view) {
 
                 if(application.isBulletinInBookmark(posts.get(i).getTitle()) == false){
-                    application.addBookmark(title, bulletin_img, posts.get(i));
+
+                    application.addBookmark(title, bulletin_img, posts.get(i).getLink(), posts.get(i).getComment(), posts.get(i).getPost_num(), posts.get(i).getDate(), posts.get(i).getTitle());
                     Toast.makeText(mContext, "북마크에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }

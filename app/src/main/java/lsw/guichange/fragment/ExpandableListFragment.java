@@ -2,6 +2,7 @@ package lsw.guichange.fragment;
 
 
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
+import lsw.guichange.Item.Post;
 import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.Item.addBulletin;
 import lsw.guichange.R;
@@ -24,6 +27,9 @@ import java.util.List;
 
 import lsw.guichange.lib.AnimatedExpandableListView;
 import lsw.guichange.lib.AnimatedExpandableListView.AnimatedExpandableListAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -56,6 +62,7 @@ public class ExpandableListFragment extends Fragment {
     DatabaseReference myRef ;
     FloatingActionButton fab;
     PagerAdapter pagerAdapter;
+
 
 
     public ExpandableListFragment() {
@@ -147,6 +154,7 @@ public class ExpandableListFragment extends Fragment {
     private static class GroupHolder {
         public ImageView category_img;
         public TextView category_title;
+        public ImageView categrory_indicator;
 
     }
 
@@ -199,6 +207,7 @@ public class ExpandableListFragment extends Fragment {
                         RecentBulletin recentBulletin = new RecentBulletin(items.get(groupPosition).getbItems().get(childPosition).getBulletin_Img(), items.get(groupPosition).getbItems().get(childPosition).getCategory(), items.get(groupPosition).getbItems().get(childPosition).getBulletin_Name());
                         application.setChoiced_bulletins(recentBulletin);
                         application.makePostDB(items.get(groupPosition).getbItems().get(childPosition).getBulletin_Name());
+
                         Toast.makeText(getActivity(), "나의 게시판에 추가되었습니다.", Toast.LENGTH_SHORT).show();
                         pagerAdapter.notifyDataSetChanged();
 
@@ -236,14 +245,15 @@ public class ExpandableListFragment extends Fragment {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            GroupHolder holder;
-            Category item = getGroup(groupPosition);
+        public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+            final GroupHolder holder;
+            final Category item = getGroup(groupPosition);
             if (convertView == null) {
                 holder = new GroupHolder();
                 convertView = inflater.inflate(R.layout.category, parent, false);
                 holder.category_img = (ImageView)convertView.findViewById(R.id.category_image);
                 holder.category_title = (TextView) convertView.findViewById(R.id.category_name);
+//                holder.categrory_indicator = (ImageView) convertView.findViewById(R.id.group_indicator);
                 convertView.setTag(holder);
             } else {
                 holder = (GroupHolder) convertView.getTag();
@@ -304,6 +314,8 @@ public class ExpandableListFragment extends Fragment {
         alert.setView(_layout);
         alert.show();
     }
+
+
 
 }
 

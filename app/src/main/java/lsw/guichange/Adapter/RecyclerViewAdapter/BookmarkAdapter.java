@@ -2,6 +2,8 @@ package lsw.guichange.Adapter.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 
 import lsw.guichange.Activity.webview;
 import lsw.guichange.Controller.ApplicationController;
+import lsw.guichange.DB.DBHelper;
 import lsw.guichange.Interface.FragmentDataChangeListener;
 import lsw.guichange.Interface.OnPostItemClickListener;
 import lsw.guichange.Item.Post;
@@ -24,7 +27,7 @@ import lsw.guichange.R;
  */
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> implements OnPostItemClickListener {
-
+//    DBHelper dbHelper;
     Context mContext;
     ApplicationController application;
     ArrayList<Post> bookmarkPosts;
@@ -36,6 +39,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         this.bookmarkPosts = application.getBookmarks();
         this.mCallback = mCallback;
         this.mContext = mContext;
+//        dbHelper = new DBHelper(mContext);
+
 
     }
     @Override
@@ -43,6 +48,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         viewHolder.Post_comment.setText(bookmarkPosts.get(i).getComment());
         viewHolder.Post_content.setText(bookmarkPosts.get(i).getTitle());
         viewHolder.Post_title.setText(bookmarkPosts.get(i).getBulletinTitle());
+
         viewHolder.Post_img.setImageResource(bookmarkPosts.get(i).getBulletinImg());
 //        viewHolder.Post_date.setText(bookmarkPosts.get(i).getDate());
         viewHolder.Post_delete.setOnClickListener(new View.OnClickListener() {
@@ -107,4 +113,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         }
 
     }
+
+
 }

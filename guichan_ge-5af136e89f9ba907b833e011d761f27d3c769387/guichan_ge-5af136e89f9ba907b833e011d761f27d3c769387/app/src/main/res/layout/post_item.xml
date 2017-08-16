@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_bulletinlist_ppomppu"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/post_img"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_bulletin_name"
+        android:layout_toRightOf="@id/post_img"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="ppompu"/>
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_content"
+        android:text="content"
+        android:textSize="15sp"
+        android:background="@color/None"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/post_img"
+        android:layout_below="@id/post_bulletin_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="10sp"
+        android:background="@color/colorAccentFallback"
+        android:textColor="@color/None"
+        android:id="@+id/post_comment"
+        android:text="10"
+        android:layout_toRightOf="@id/post_content"
+        android:layout_below="@id/post_bulletin_name"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="7sp"
+        android:layout_toRightOf="@id/post_img"
+        android:id="@+id/ppost_date"
+        android:layout_below="@id/post_content" />
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/bookmark_check"
+        android:src="@drawable/ic_post_add"
+        android:layout_toRightOf="@id/post_comment"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/post_bulletin_name"/>
+
+
+</RelativeLayout>
