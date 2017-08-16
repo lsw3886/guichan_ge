@@ -1,5 +1,7 @@
 package lsw.guichange.Item;
 
+import java.util.List;
+
 /**
  * Created by lsw38 on 2017-08-08.
  */
@@ -8,6 +10,8 @@ public class Category {
 
     String name;
     int image;
+    List<Post> posts;
+
 
     public Category(String name, int image) {
         this.name = name;

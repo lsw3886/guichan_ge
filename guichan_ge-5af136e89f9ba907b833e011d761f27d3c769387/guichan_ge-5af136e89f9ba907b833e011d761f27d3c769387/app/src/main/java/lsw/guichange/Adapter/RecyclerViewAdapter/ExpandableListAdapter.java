@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import lsw.guichange.Interface.OnListItemClickListener;
 import lsw.guichange.R;
 
 /**
@@ -39,18 +40,14 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 ListHeaderViewHolder header = new ListHeaderViewHolder(view);
                 return header;
             case CHILD:
-                TextView itemTextView = new TextView(context);
-                itemTextView.setPadding(subItemPaddingLeft, subItemPaddingTopAndBottom, 0, subItemPaddingTopAndBottom);
-                itemTextView.setTextColor(0x88000000);
-                itemTextView.setLayoutParams(
-                        new ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT));
-                return new RecyclerView.ViewHolder(itemTextView) {
-                };
+                LayoutInflater dinflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = dinflater.inflate(R.layout.bulletin_list_item, parent, false);
+                ListChildViewHolder child = new ListChildViewHolder(view);
+                return child;
         }
         return null;
     }
+
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Item item = data.get(position);
@@ -59,12 +56,13 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 final ListHeaderViewHolder itemController = (ListHeaderViewHolder) holder;
                 itemController.refferalItem = item;
                 itemController.header_title.setText(item.text);
+                itemController.header_image.setImageResource(item.image);
                 if (item.invisibleChildren == null) {
                     itemController.btn_expand_toggle.setImageResource(R.drawable.ic_expandable_arrowup);
                 } else {
                     itemController.btn_expand_toggle.setImageResource(R.drawable.ic_expandable_arrowdown);
                 }
-                itemController.btn_expand_toggle.setOnClickListener(new View.OnClickListener() {
+                holder.itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         if (item.invisibleChildren == null) {
@@ -90,10 +88,14 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         }
                     }
                 });
+
                 break;
             case CHILD:
-                TextView itemTextView = (TextView) holder.itemView;
-                itemTextView.setText(data.get(position).text);
+                final ListChildViewHolder citemController = (ListChildViewHolder) holder;
+                citemController.refferalItem = item;
+                citemController.child_title.setText(item.text);
+                citemController.child_image.setImageResource(item.image);
+                citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
                 break;
         }
     }
@@ -103,6 +105,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return data.get(position).type;
     }
 
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -110,27 +113,45 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private static class ListHeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView header_title;
+        public ImageView header_image;
         public ImageView btn_expand_toggle;
         public Item refferalItem;
 
         public ListHeaderViewHolder(View itemView) {
             super(itemView);
             header_title = (TextView) itemView.findViewById(R.id.header_title);
+            header_image =(ImageView) itemView.findViewById(R.id.header_image);
             btn_expand_toggle = (ImageView) itemView.findViewById(R.id.btn_expand_toggle);
         }
     }
+    private static class ListChildViewHolder extends RecyclerView.ViewHolder {
+        public TextView child_title;
+        public ImageView child_image;
+        public ImageView isSelect;
+        public Item refferalItem;
+
+        public ListChildViewHolder(View itemView) {
+            super(itemView);
+            child_title= (TextView) itemView.findViewById(R.id.bulletin_name);
+            child_image =(ImageView) itemView.findViewById(R.id.bulletin_image);
+            isSelect = (ImageView) itemView.findViewById(R.id.is_bulletin_selected);
+        }
+    }
+
 
     public static class Item {
         public int type;
         public String text;
+        public int image;
         public List<Item> invisibleChildren;
 
         public Item() {
         }
 
-        public Item(int type, String text) {
+        public Item(int type, String text, int image) {
             this.type = type;
             this.text = text;
+            this.image = image;
         }
     }
 }

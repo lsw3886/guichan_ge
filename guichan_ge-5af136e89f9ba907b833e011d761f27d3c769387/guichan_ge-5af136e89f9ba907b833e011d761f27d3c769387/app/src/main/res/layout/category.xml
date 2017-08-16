@@ -23,7 +23,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_main_arrow_ac"
+            android:id="@+id/category_arrow"
+            android:src="@drawable/ic_expandable_arrowdown"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             />
