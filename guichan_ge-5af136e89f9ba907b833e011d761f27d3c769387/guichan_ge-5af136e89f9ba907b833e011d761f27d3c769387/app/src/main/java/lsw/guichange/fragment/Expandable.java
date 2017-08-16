@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import lsw.guichange.Adapter.PagerAdapter;
 import lsw.guichange.Adapter.RecyclerViewAdapter.ExpandableListAdapter;
 import lsw.guichange.Adapter.RecyclerViewAdapter.ListAdapter;
 import lsw.guichange.Item.addBulletin;
@@ -48,6 +49,7 @@ public class Expandable extends Fragment {
     FloatingActionButton fab;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    PagerAdapter pagerAdapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -59,8 +61,9 @@ public class Expandable extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static Expandable newInstance() {
+    public static Expandable newInstance(PagerAdapter pagerAdapter) {
         Expandable fragment = new Expandable();
+        fragment.pagerAdapter = pagerAdapter;
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -98,25 +101,25 @@ public class Expandable extends Fragment {
 
         List<ExpandableListAdapter.Item> data = new ArrayList<>();
 
-        ExpandableListAdapter.Item shopping = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "쇼핑", R.drawable.ic_bulletinlist_cart);
+        ExpandableListAdapter.Item shopping = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "쇼핑", R.drawable.ic_bulletinlist_cart, "쇼핑");
         shopping.invisibleChildren = new ArrayList<>();
-        shopping.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "뽐뿌게시판",R.drawable.ic_bulletinlist_ppomppu));
-        shopping.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "중고나라", R.drawable.ic_bulletinlist_jungo));
+        shopping.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "뽐뿌게시판",R.drawable.ic_bulletinlist_ppomppu, "쇼핑"));
+        shopping.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "중고나라", R.drawable.ic_bulletinlist_jungo, "쇼핑"));
 
-        ExpandableListAdapter.Item exam = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "시험",R.drawable.ic_bulletinlist_exam);
+        ExpandableListAdapter.Item exam = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "시험",R.drawable.ic_bulletinlist_exam, "시헝");
         exam.invisibleChildren = new ArrayList<>();
-        exam.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "오르비", R.drawable.ic_bulletinlist_orbi));
-        exam.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "행시사랑", R.drawable.ic_bulletinlist_hangsi));
+        exam.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "오르비", R.drawable.ic_bulletinlist_orbi, "시헝"));
+        exam.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "행시사랑", R.drawable.ic_bulletinlist_hangsi, "시헝"));
 
-        ExpandableListAdapter.Item job = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "취업", R.drawable.ic_bulletinlist_bag);
+        ExpandableListAdapter.Item job = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "취업", R.drawable.ic_bulletinlist_bag, "취업");
         job.invisibleChildren = new ArrayList<>();
-        job.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "스펙업",R.drawable.specup_ic));
-        job.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "취업대학교", R.drawable.ic_bulletinlist_chiup));
+        job.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "스펙업",R.drawable.specup_ic, "취업"));
+        job.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "취업대학교", R.drawable.ic_bulletinlist_chiup, "취업"));
 
-        ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "커뮤니티", R.drawable.ic_bulletinlist_com);
+        ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "커뮤니티", R.drawable.ic_bulletinlist_com, "커뮤니티");
         places.invisibleChildren = new ArrayList<>();
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "뽐뿌자게", R.drawable.ic_bulletinlist_ppomppu));
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "부스트캠프", R.drawable.ic_bulletinlist_boost));
+        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "뽐뿌자게", R.drawable.ic_bulletinlist_ppomppu, "커뮤니티"));
+        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "부스트캠프", R.drawable.ic_bulletinlist_boost, "커뮤니티"));
 
         data.add(shopping);
         data.add(exam);
@@ -124,7 +127,7 @@ public class Expandable extends Fragment {
         data.add(places);
 
 
-        recyclerview.setAdapter(new ExpandableListAdapter(data));
+        recyclerview.setAdapter(new ExpandableListAdapter(data, getContext(), pagerAdapter));
 
     }
     // TODO: Rename method, update argument and hook method into UI event

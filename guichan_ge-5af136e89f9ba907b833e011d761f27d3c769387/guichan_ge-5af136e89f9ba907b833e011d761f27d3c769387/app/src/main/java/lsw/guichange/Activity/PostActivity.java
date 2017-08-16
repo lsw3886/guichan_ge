@@ -37,7 +37,7 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         application = ApplicationController.getInstance();
-        application.buildNetworkService("42b5bae9.ngrok.io");
+        application.buildNetworkService("c3d6c7b2.ngrok.io");
         networkService = application.getNetworkService();
         Bulletin_posts = new ArrayList<>();
         receivePosts();
@@ -99,12 +99,16 @@ public class PostActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 } else {
                     int StatusCode = response.code();
+                    adapter.setPosts(application.getPosts(bulletinName));
+                    adapter.notifyDataSetChanged();
                     Log.i(ApplicationController.TAG, "Status Code : " + StatusCode);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                adapter.setPosts(application.getPosts(bulletinName));
+                adapter.notifyDataSetChanged();
                 Log.i(ApplicationController.TAG, "Fail Message : " + t.getMessage());
             }
         });

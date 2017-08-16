@@ -6,11 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lsw.guichange.Adapter.PagerAdapter;
+import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Interface.OnListItemClickListener;
+import lsw.guichange.Item.RecentBulletin;
 import lsw.guichange.R;
 
 /**
@@ -21,9 +25,14 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static final int CHILD = 1;
 
     private List<Item> data;
-
-    public ExpandableListAdapter(List<Item> data) {
+    Context mContext;
+PagerAdapter pagerAdapter;
+    ApplicationController application;
+    public ExpandableListAdapter(List<Item> data, Context context, PagerAdapter pagerAdapter) {
         this.data = data;
+        this.mContext = context;
+        this.pagerAdapter = pagerAdapter;
+        application = ApplicationController.getInstance();
     }
 
     @Override
@@ -49,7 +58,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Item item = data.get(position);
         switch (item.type) {
             case HEADER:
@@ -96,6 +105,22 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 citemController.child_title.setText(item.text);
                 citemController.child_image.setImageResource(item.image);
                 citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
+                citemController.isSelect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(application.isBulletinInChoicedBulletins(data.get(position).text) == false){
+                            RecentBulletin recentBulletin = new RecentBulletin(data.get(position).image, data.get(position).Category, data.get(position).text);
+                            application.setChoiced_bulletins(recentBulletin);
+                            application.makePostDB(data.get(position).text);
+                            Toast.makeText(mContext, "나의 게시판에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            pagerAdapter.notifyDataSetChanged();
+
+                        }else{
+                            Toast.makeText(mContext,"이미 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                 break;
         }
     }
@@ -144,14 +169,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public String text;
         public int image;
         public List<Item> invisibleChildren;
-
+        public String Category;
         public Item() {
         }
 
-        public Item(int type, String text, int image) {
+        public Item(int type, String text, int image, String category) {
             this.type = type;
             this.text = text;
             this.image = image;
+            this.Category = category;
         }
     }
 }

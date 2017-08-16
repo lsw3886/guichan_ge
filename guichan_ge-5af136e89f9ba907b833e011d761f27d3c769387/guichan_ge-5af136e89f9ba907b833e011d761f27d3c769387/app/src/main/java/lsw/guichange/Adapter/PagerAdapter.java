@@ -30,7 +30,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         recentFragment = RecentFragment.newInstance();
         bookmarkFragment = BookmarkFragment.newInstance();
         settingFragment = SettingFragment.newInstance();
-        expandable = Expandable.newInstance();
+        expandable = Expandable.newInstance(this);
 
     }
 

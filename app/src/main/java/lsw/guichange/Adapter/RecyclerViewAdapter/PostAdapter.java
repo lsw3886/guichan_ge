@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lsw.guichange.Activity.webview;
+import lsw.guichange.Adapter.PagerAdapter;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Controller.NetworkService;
 import lsw.guichange.Interface.OnPostItemClickListener;
@@ -40,11 +41,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     int bulletin_img;
     String title;
     String content;
-    public PostAdapter(Context mContext, int img, String title, ArrayList<Post> posts) {
+    PagerAdapter pagerAdapter;
+    public PostAdapter(Context mContext, int img, String title, ArrayList<Post> posts, PagerAdapter pagerAdapter) {
         this.mContext = mContext;
         this.posts = posts;
         this.bulletin_img = img;
         this.title = title;
+        this.pagerAdapter = pagerAdapter;
         this.content = "hello";
     }
 

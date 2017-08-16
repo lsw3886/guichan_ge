@@ -64,7 +64,6 @@ public class ExpandableListFragment extends Fragment {
     PagerAdapter pagerAdapter;
 
 
-
     public ExpandableListFragment() {
         // Required empty public constructor
     }
