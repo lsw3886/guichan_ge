@@ -51,9 +51,10 @@ public class RecentAdapter  extends RecyclerView.Adapter<RecentAdapter.ViewHolde
             @Override
             public void onClick(View view) {
                 application.deleteChoiced_bulletins(choiced_bulletins.get(i).getBulletin_Name());
-                mCallback.Datachange();
                 Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
+                mCallback.Datachange();
+
             }
         });
     }

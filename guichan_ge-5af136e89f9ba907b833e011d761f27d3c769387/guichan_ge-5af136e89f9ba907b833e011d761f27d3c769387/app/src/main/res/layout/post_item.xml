@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -19,34 +20,30 @@
         android:layout_marginTop="5dp"
         android:text="ppompu"/>
     <TextView
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/post_content"
         android:text="content"
         android:textSize="15sp"
         android:background="@color/None"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/post_img"
-        android:layout_below="@id/post_bulletin_name"/>
+        android:layout_below="@+id/post_img"
+        android:layout_alignStart="@+id/ppost_date" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginBottom="3dp"
         android:textSize="10sp"
-        android:background="@color/colorAccentFallback"
         android:textColor="@color/None"
         android:id="@+id/post_comment"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
         android:text="10"
-        android:layout_toRightOf="@id/post_content"
-        android:layout_below="@id/post_bulletin_name"
-
-        />
+        android:background="@drawable/ic_action_name"
+        android:layout_alignTop="@+id/post_bulletin_name"
+        android:layout_toEndOf="@+id/post_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,15 +52,14 @@
         android:id="@+id/ppost_date"
         android:layout_below="@id/post_content" />
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:id="@+id/bookmark_check"
-        android:src="@drawable/ic_post_add"
-        android:layout_toRightOf="@id/post_comment"
-        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_post_bookmark"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_below="@id/post_bulletin_name"/>
+        android:layout_below="@+id/post_comment"
+        android:layout_toRightOf="@id/post_content"/>
 
 
 </RelativeLayout>

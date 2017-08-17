@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String choicedBulletin= "CREATE TABLE RecentBulletin(img INTEGER, category VARCHAR(20), name VARCHAR(20));";
         String bookMark = "CREATE TABLE Bookmark(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum INTEGER, title VARCHAR(10), date VARCHAR(20), bimg INTEGER, btitle VARCHAR(5));";
-
+        String bulletin = "CREATE TABLE Bulletin(BulletinName TEXT, BulletinImg INTEGER);";
 
         db.execSQL(choicedBulletin);
         db.execSQL(bookMark);
@@ -34,8 +34,5 @@ public class DBHelper extends SQLiteOpenHelper {
         //새로 생성될 수 있도록 onCreate() 메소드를 생성한다.
         onCreate(db);
     }
-
-
-
 
 }

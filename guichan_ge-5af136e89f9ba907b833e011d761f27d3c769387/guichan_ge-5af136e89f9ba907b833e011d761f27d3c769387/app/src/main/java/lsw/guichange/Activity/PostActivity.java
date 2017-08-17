@@ -107,8 +107,7 @@ public class PostActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                adapter.setPosts(application.getPosts(bulletinName));
-                adapter.notifyDataSetChanged();
+
                 Log.i(ApplicationController.TAG, "Fail Message : " + t.getMessage());
             }
         });

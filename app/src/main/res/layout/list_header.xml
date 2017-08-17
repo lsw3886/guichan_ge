@@ -20,7 +20,7 @@
         android:layout_weight="1"/>
     <ImageView
         android:id="@+id/btn_expand_toggle"
-        android:src="@drawable/a"
+        android:src="@drawable/ic_expandable_arrowdown"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_weight="0"/>

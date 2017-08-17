@@ -1,5 +1,6 @@
 package lsw.guichange.Adapter.RecyclerViewAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import lsw.guichange.Activity.CustomBulletinActivity;
 import lsw.guichange.Adapter.PagerAdapter;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Interface.OnListItemClickListener;
@@ -51,6 +53,7 @@ PagerAdapter pagerAdapter;
             case CHILD:
                 LayoutInflater dinflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = dinflater.inflate(R.layout.bulletin_list_item, parent, false);
+
                 ListChildViewHolder child = new ListChildViewHolder(view);
                 return child;
         }
@@ -105,6 +108,7 @@ PagerAdapter pagerAdapter;
                 citemController.child_title.setText(item.text);
                 citemController.child_image.setImageResource(item.image);
                 citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
+                citemController.modifyBtn.setImageResource(R.drawable.ic_custom_pencil);
                 citemController.isSelect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -119,6 +123,15 @@ PagerAdapter pagerAdapter;
                         }else{
                             Toast.makeText(mContext,"이미 추가 되었습니다.", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+                citemController.modifyBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, CustomBulletinActivity.class);
+                        intent.putExtra("BulletinName", data.get(position).text);
+                        intent.putExtra("BulletinImg", data.get(position).image);
+                        mContext.startActivity(intent);
                     }
                 });
                 break;
@@ -153,6 +166,7 @@ PagerAdapter pagerAdapter;
         public TextView child_title;
         public ImageView child_image;
         public ImageView isSelect;
+        public ImageView modifyBtn;
         public Item refferalItem;
 
         public ListChildViewHolder(View itemView) {
@@ -160,6 +174,7 @@ PagerAdapter pagerAdapter;
             child_title= (TextView) itemView.findViewById(R.id.bulletin_name);
             child_image =(ImageView) itemView.findViewById(R.id.bulletin_image);
             isSelect = (ImageView) itemView.findViewById(R.id.is_bulletin_selected);
+            modifyBtn = (ImageView) itemView.findViewById(R.id.modifyBulletinBtn);
         }
     }
 

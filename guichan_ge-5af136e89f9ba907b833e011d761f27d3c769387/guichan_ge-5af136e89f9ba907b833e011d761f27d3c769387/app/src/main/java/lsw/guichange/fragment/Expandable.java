@@ -54,6 +54,7 @@ public class Expandable extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     private OnFragmentInteractionListener mListener;
 
     public Expandable() {
@@ -181,14 +182,13 @@ public class Expandable extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         if(inputBulletinAddress.getText().toString().equals("") || inputBulletinName.getText().toString().equals("")){
-                            Toast.makeText(getActivity(), "전송실패!",Toast.LENGTH_SHORT);
-
+                            Toast.makeText(getActivity().getApplicationContext(),"전송실패!", Toast.LENGTH_SHORT).show();
                         }else {
                             database = FirebaseDatabase.getInstance();
                             myRef = database.getReference("Bulletins");
                             addBulletin addBulletin = new addBulletin(inputBulletinName.getText().toString(), inputBulletinAddress.getText().toString());
                             myRef.child(inputBulletinName.getText().toString()).setValue(addBulletin);
-                            Toast.makeText(getActivity(), "전송성공!",Toast.LENGTH_SHORT);
+                            Toast.makeText(getActivity().getApplicationContext(), "전송성공!",Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -198,7 +198,7 @@ public class Expandable extends Fragment {
                 })
                 .setNeutralButton("취소", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "취소되었습니다.",Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity().getApplicationContext(), "취소되었습니다.",Toast.LENGTH_SHORT).show();
 
                         //CAncel  버튼 눌렀을때
 
@@ -207,4 +207,6 @@ public class Expandable extends Fragment {
         alert.setView(_layout);
         alert.show();
     }
+
+
 }
