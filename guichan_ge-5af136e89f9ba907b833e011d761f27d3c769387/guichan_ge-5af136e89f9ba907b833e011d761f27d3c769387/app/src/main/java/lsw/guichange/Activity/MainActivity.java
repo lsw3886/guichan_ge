@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDataChang
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("게시판"));
         tabLayout.addTab(tabLayout.newTab().setText("나의 게시판"));
         tabLayout.addTab(tabLayout.newTab().setText("북마크"));
-        tabLayout.addTab(tabLayout.newTab().setText("설정"));
+        tabLayout.addTab(tabLayout.newTab().setText("게시판 설정"));
+
         tabLayout.setTabTextColors(Color.WHITE, Color.rgb(255, 171, 0));
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);

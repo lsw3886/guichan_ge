@@ -47,6 +47,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             android:src="@drawable/ic_recent_delete" />
 
 

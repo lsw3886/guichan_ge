@@ -28,7 +28,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private List<Item> data;
     Context mContext;
-PagerAdapter pagerAdapter;
+    PagerAdapter pagerAdapter;
     ApplicationController application;
     public ExpandableListAdapter(List<Item> data, Context context, PagerAdapter pagerAdapter) {
         this.data = data;
@@ -107,21 +107,32 @@ PagerAdapter pagerAdapter;
                 citemController.refferalItem = item;
                 citemController.child_title.setText(item.text);
                 citemController.child_image.setImageResource(item.image);
-                citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
+                if(application.isBulletinInChoicedBulletins(data.get(position).text) == false){
+                    citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
+
+                }else{
+                    citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_unselect);
+                }
                 citemController.modifyBtn.setImageResource(R.drawable.ic_custom_pencil);
                 citemController.isSelect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         if(application.isBulletinInChoicedBulletins(data.get(position).text) == false){
+//                            data.get(position).isSelect = 1;
                             RecentBulletin recentBulletin = new RecentBulletin(data.get(position).image, data.get(position).Category, data.get(position).text);
                             application.setChoiced_bulletins(recentBulletin);
                             application.makePostDB(data.get(position).text);
                             Toast.makeText(mContext, "나의 게시판에 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                            pagerAdapter.notifyDataSetChanged();
+                            citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_unselect);
 
                         }else{
-                            Toast.makeText(mContext,"이미 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                            citemController.isSelect.setImageResource(R.drawable.ic_bulletinlist_select);
+//                            data.get(position).isSelect=0;
+                            application.deleteChoiced_bulletins(data.get(position).text);
+
+
+                            Toast.makeText(mContext,"해제되었습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -183,6 +194,7 @@ PagerAdapter pagerAdapter;
         public int type;
         public String text;
         public int image;
+//        public int isSelect;
         public List<Item> invisibleChildren;
         public String Category;
         public Item() {

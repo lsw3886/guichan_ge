@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,13 +33,14 @@ public class PostActivity extends AppCompatActivity {
     PostAdapter adapter;
     String bulletinName;
     int bulletinImage;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         application = ApplicationController.getInstance();
-        application.buildNetworkService("c3d6c7b2.ngrok.io");
+        application.buildNetworkService("9b9d0c51.ngrok.io");
         networkService = application.getNetworkService();
         Bulletin_posts = new ArrayList<>();
         receivePosts();
@@ -48,7 +51,7 @@ public class PostActivity extends AppCompatActivity {
         ImageView title_imageview = (ImageView) findViewById(R.id.post_activity_title_img);
         title_view.setText(bulletinName);
         title_imageview.setImageResource(bulletinImage);
-
+        progressBar = (ProgressBar)findViewById(R.id.post_progressbar);
         recyclerView = (RecyclerView) findViewById(R.id.post_recyclerview);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
@@ -96,10 +99,12 @@ public class PostActivity extends AppCompatActivity {
                         application.addPosts(bulletinName, bulletinImage, x);
                     }
                     adapter.setPosts(application.getPosts(bulletinName));
+                    progressBar.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
                 } else {
                     int StatusCode = response.code();
                     adapter.setPosts(application.getPosts(bulletinName));
+                    progressBar.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
                     Log.i(ApplicationController.TAG, "Status Code : " + StatusCode);
                 }

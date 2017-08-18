@@ -6,13 +6,15 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="12dp"
     app:cardUseCompatPadding="true"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
 
         <ImageView
             android:id="@+id/Bookmark_bulletin_image"
@@ -45,32 +47,36 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_recent_delete" />
+
         <TextView
+            android:id="@+id/Bookmark_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="3dp"
-            android:textSize="10sp"
-            android:background="@color/colorAccentFallback"
-            android:textColor="@color/None"
-            android:id="@+id/Bookmark_comment"
-            android:text="10"
-            android:layout_toRightOf="@id/Bookmark_bulletin_content"
             android:layout_below="@id/Bookmark_bulletin_name"
+            android:layout_marginBottom="3dp"
+
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/Bookmark_bulletin_content"
+            android:background="@drawable/ic_action_name"
+            android:gravity="center"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/None"
+            android:textSize="10sp"
 
             />
+
         <TextView
+            android:id="@+id/Bookmark_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="7sp"
-            android:id="@+id/Bookmark_date"
+            android:layout_below="@id/Bookmark_comment"
             android:layout_toRightOf="@id/Bookmark_bulletin_content"
-            android:layout_below="@id/Bookmark_comment" />
+            android:textSize="7sp" />
 
 
     </RelativeLayout>

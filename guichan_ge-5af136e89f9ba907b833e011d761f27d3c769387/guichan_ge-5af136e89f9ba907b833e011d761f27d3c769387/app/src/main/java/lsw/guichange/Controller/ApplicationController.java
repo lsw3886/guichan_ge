@@ -16,6 +16,7 @@ import lsw.guichange.Item.Bulletin;
 import lsw.guichange.Item.Category;
 import lsw.guichange.Item.Post;
 import lsw.guichange.Item.RecentBulletin;
+import lsw.guichange.Item.exItem;
 import lsw.guichange.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +54,7 @@ public class ApplicationController extends Application {
         dbHelper = new DBHelper(this);
         choicedBulletin_init();
         BookmarkInit();
+        updateBulletin();
 
 
 
@@ -361,5 +363,42 @@ public class ApplicationController extends Application {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String query = "CREATE TABLE "+ s + "(sitename VARCHAR(20), link VARCHAR(100), comment VARCHAR(3), postnum INTEGER, title VARCHAR(10), date VARCHAR(20), bimg INTEGER, "+ s + " VARCHAR(5));";
         db.execSQL(query);
+    }
+
+
+    public void updateBulletin(){
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
+        instance.buildNetworkService("9b9d0c51.ngrok.io");
+        networkService = instance.getNetworkService();
+        Call<List<exItem>> versionCall = networkService.get_category();
+        versionCall.enqueue(new Callback<List<exItem>>() {
+            @Override
+            public void onResponse(Call<List<exItem>> call, Response<List<exItem>> response) {
+                if(response.isSuccessful()) {
+                    List<exItem> categoryitem = response.body();
+
+                    for(exItem x : categoryitem){
+                        Cursor rs =  db.rawQuery("select * from Bulletin where BulletinName = " +"\""+ x.getName()+"\""+ ";", null);
+
+                        if(rs.getCount() == 0){
+                            db.execSQL("insert into Bulletin values(" + "\"" + x.getCategory() + "\", \"" + x.getName() + "\"," + R.drawable.ic_splash_guichan + ",NULL,NULL);");
+
+                        }
+                    }
+
+
+                } else {
+                    int StatusCode = response.code();
+
+                    Log.i(ApplicationController.TAG, "Status Code : " + StatusCode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<exItem>> call, Throwable t) {
+
+                Log.i(ApplicationController.TAG, "Fail Message : " + t.getMessage());
+            }
+        });
     }
 }

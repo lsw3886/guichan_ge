@@ -2,6 +2,7 @@ package lsw.guichange.Controller;
 import java.util.List;
 
 import lsw.guichange.Item.Post;
+import lsw.guichange.Item.exItem;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -32,6 +33,11 @@ public interface NetworkService {
     @GET("/ppompers/{pk}/")
     Call<Post> get_pk_post(@Query("post") int pk);
 
+    @GET("/mycategory/")
+    Call<exItem> get_mycategory();
+
+    @GET("/categories/")
+    Call<List<exItem>>get_category();
 
 
 

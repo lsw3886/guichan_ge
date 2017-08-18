@@ -29,7 +29,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 //        listFragment = ListFragment.newInstance();
         recentFragment = RecentFragment.newInstance();
         bookmarkFragment = BookmarkFragment.newInstance();
-        settingFragment = SettingFragment.newInstance();
+//        settingFragment = SettingFragment.newInstance();
         expandable = Expandable.newInstance(this);
 
     }
@@ -40,20 +40,16 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
             case 0:
 
-                return  expandable;
+                return recentFragment;
 
 
             case 1:
 
-                return recentFragment;
+                return bookmarkFragment;
 
             case 2:
 
-                return bookmarkFragment;
-
-            case 3:
-
-                return settingFragment;
+                return expandable;
 
             default :
                 return null;
@@ -62,7 +58,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount(){
-        return 4;
+        return 3;
     }
 
     @Override

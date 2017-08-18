@@ -18,13 +18,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="10dp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/category_arrow"
-            android:src="@drawable/ic_expandable_arrowdown"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             />

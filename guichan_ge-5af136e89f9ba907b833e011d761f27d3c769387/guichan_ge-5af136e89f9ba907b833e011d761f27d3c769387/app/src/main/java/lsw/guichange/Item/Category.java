@@ -10,7 +10,6 @@ public class Category {
 
     String name;
     int image;
-    List<Post> posts;
 
 
     public Category(String name, int image) {
