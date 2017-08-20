@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.admin.NetworkEvent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.lang.reflect.Array;
@@ -30,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationController extends Application {
     public final static String TAG = "LSW";
+    public Bitmap bitmap;
     private static ApplicationController instance;
     public ArrayList<Bulletin> job_bulletins;
     public ArrayList<Bulletin> exam_bulletins;
@@ -112,7 +114,7 @@ public class ApplicationController extends Application {
     }
 
     public void addPosts(String bulletinName, int bulletinImg, Post post){
-        SQLiteDatabase db2 = dbHelper.getReadableDatabase();
+            SQLiteDatabase db2 = dbHelper.getReadableDatabase();
                String findQuery = "select max(postnum) from " + bulletinName+";";
                 Cursor rs = db2.query(bulletinName, new String [] {"MAX("+"postnum"+")"}, null, null, null, null, null);
                 rs.moveToFirst();
@@ -159,7 +161,6 @@ public class ApplicationController extends Application {
         this.choiced_bulletins.add(choiced_bulletin);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("insert into RecentBulletin values("+choiced_bulletin.getBulletin_Img()+", " + "\"" + choiced_bulletin.getCategory()+ "\""+", "+"\""+ choiced_bulletin.getBulletin_Name()+"\"" +");");
-
     }
 
     public ArrayList<Post> getBookmarks() {
@@ -303,7 +304,7 @@ public class ApplicationController extends Application {
 
     public ArrayList<Bulletin> Makebulletins(String category){
         ArrayList<Bulletin> bulletins = new ArrayList<>();
-        Bulletin default_bulletins = new Bulletin(R.drawable.ic_splash_guichan, category , "귀찮게");
+        Bulletin default_bulletins = new Bulletin(R.drawable.ic_guichan, category , "귀찮게");
 
         switch (category){
             case "쇼핑":
@@ -368,7 +369,7 @@ public class ApplicationController extends Application {
 
     public void updateBulletin(){
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
-        instance.buildNetworkService("9b9d0c51.ngrok.io");
+        instance.buildNetworkService("c8785de2.ngrok.io");
         networkService = instance.getNetworkService();
         Call<List<exItem>> versionCall = networkService.get_category();
         versionCall.enqueue(new Callback<List<exItem>>() {
@@ -379,13 +380,14 @@ public class ApplicationController extends Application {
 
                     for(exItem x : categoryitem){
                         Cursor rs =  db.rawQuery("select * from Bulletin where BulletinName = " +"\""+ x.getName()+"\""+ ";", null);
-
+                        Cursor rs2 = db.rawQuery("select * from RequestBulletin where password = " + "\""+ x.getPassword()+"\""+" AND" +" BulletinName = "+"\""+x.getName()+"\""+";", null);
                         if(rs.getCount() == 0){
-                            db.execSQL("insert into Bulletin values(" + "\"" + x.getCategory() + "\", \"" + x.getName() + "\"," + R.drawable.ic_splash_guichan + ",NULL,NULL);");
 
+                            if(x.getCategory().equals("취업") || x.getCategory().equals("시험")||x.getCategory().equals("커뮤니티")||x.getCategory().equals("쇼핑")||rs2.getCount() !=0) {
+                                db.execSQL("insert into Bulletin values(" + "\"" + x.getCategory() + "\", \"" + x.getName() + "\"," + R.drawable.guichan + ",NULL,NULL);");
+                            }
                         }
                     }
-
 
                 } else {
                     int StatusCode = response.code();

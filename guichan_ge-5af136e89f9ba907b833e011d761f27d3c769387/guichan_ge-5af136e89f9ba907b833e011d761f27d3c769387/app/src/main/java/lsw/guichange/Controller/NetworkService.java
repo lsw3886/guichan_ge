@@ -33,6 +33,9 @@ public interface NetworkService {
     @GET("/ppompers/{pk}/")
     Call<Post> get_pk_post(@Query("post") int pk);
 
+    @GET("/{pk}/")
+    Call<List<Post>> get_find_post(@Path("pk") String pk);
+
     @GET("/mycategory/")
     Call<exItem> get_mycategory();
 

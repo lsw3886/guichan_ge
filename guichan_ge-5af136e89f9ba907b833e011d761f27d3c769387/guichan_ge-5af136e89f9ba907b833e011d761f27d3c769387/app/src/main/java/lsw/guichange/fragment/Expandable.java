@@ -2,15 +2,20 @@ package lsw.guichange.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
@@ -18,10 +23,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +40,7 @@ import lsw.guichange.Adapter.RecyclerViewAdapter.ListAdapter;
 import lsw.guichange.Controller.ApplicationController;
 import lsw.guichange.Controller.NetworkService;
 import lsw.guichange.DB.DBHelper;
+import lsw.guichange.GCM.MyFirebaseInstanceIDService;
 import lsw.guichange.Item.addBulletin;
 import lsw.guichange.Item.exItem;
 import lsw.guichange.R;
@@ -40,6 +48,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.bitmap;
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
@@ -61,8 +71,12 @@ public class Expandable extends Fragment {
     DatabaseReference myRef;
     PagerAdapter pagerAdapter;
     DBHelper dbHelper;
+    Bitmap bmap;
+    ApplicationController application;
     List<ExpandableListAdapter.Item> data;
     NetworkService networkService;
+    final int REQUEST_IMAGE = 002;
+
     //    ExpandableListAdapter.Item shopping;
 //    ExpandableListAdapter.Item exam;
 //    ExpandableListAdapter.Item job;
@@ -84,7 +98,7 @@ public class Expandable extends Fragment {
         Expandable fragment = new Expandable();
         fragment.pagerAdapter = pagerAdapter;
         fragment.data = new ArrayList<>();
-
+        fragment.application = ApplicationController.getInstance();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -112,7 +126,10 @@ public class Expandable extends Fragment {
     }
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        boolean drag = false;
+
         fab = (FloatingActionButton) getView().findViewById(R.id.floating_Btn);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,11 +185,15 @@ public class Expandable extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
     private void show_dialog() {
         LayoutInflater _inflater = (LayoutInflater)getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
         View _layout = _inflater.inflate(R.layout.add_bulletin_popup, null);
         final EditText inputBulletinName = (EditText)_layout.findViewById(R.id.add_bulletin_name);
         final EditText inputBulletinAddress = (EditText)_layout.findViewById(R.id.add_bulletin_address);
+        final EditText inputPassword = (EditText)_layout.findViewById(R.id.add_bulletin_password);
+//        final ImageView addBulletinImg = (ImageView)_layout.findViewById(R.id.add_bulletin_img);
+
 
         AlertDialog alert = new AlertDialog.Builder(getActivity())
                 .setTitle("알림")
@@ -183,10 +204,14 @@ public class Expandable extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(),"전송실패!", Toast.LENGTH_SHORT).show();
                         }else {
                             database = FirebaseDatabase.getInstance();
+                            String token = FirebaseInstanceId.getInstance().getToken();
                             myRef = database.getReference("Bulletins");
-                            addBulletin addBulletin = new addBulletin(inputBulletinName.getText().toString(), inputBulletinAddress.getText().toString());
+                            addBulletin addBulletin = new addBulletin(inputBulletinName.getText().toString(), inputBulletinAddress.getText().toString(), token, inputPassword.getText().toString());
                             myRef.child(inputBulletinName.getText().toString()).setValue(addBulletin);
                             Toast.makeText(getActivity().getApplicationContext(), "전송성공!",Toast.LENGTH_SHORT).show();
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                            db.execSQL("insert into RequestBulletin values("+"\""+inputBulletinName.getText().toString()+ "\","+ "\""+inputBulletinAddress.getText().toString()+"\","+"\""+ inputPassword.getText().toString()+"\", "+R.drawable.guichan+");");
                         }
 
 
@@ -252,6 +277,7 @@ public class Expandable extends Fragment {
 
                     break;
 
+
                 default:
                     myBulletin.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, BulletinName, BulletinImg, Category));
 
@@ -261,8 +287,6 @@ public class Expandable extends Fragment {
 
         }
 
-
-
         data.add(shopping);
         data.add(exam);
         data.add(job);
@@ -271,6 +295,7 @@ public class Expandable extends Fragment {
 
         return data;
     }
+
 
 
 

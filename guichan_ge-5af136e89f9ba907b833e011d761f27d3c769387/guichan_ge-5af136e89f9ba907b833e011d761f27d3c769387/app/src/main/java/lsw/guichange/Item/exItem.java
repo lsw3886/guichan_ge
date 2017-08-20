@@ -8,11 +8,15 @@ public class exItem {
     public String name;
     public String category;
     public int img;
+    public String password;
 
-    public exItem(String name, String category, int img) {
+
+    public exItem(String name, String category, int img, String password) {
         this.name = name;
         this.category = category;
         this.img = img;
+        this.password = password;
+
     }
 
     public String getName() {
@@ -38,4 +42,13 @@ public class exItem {
     public void setImg(int img) {
         this.img = img;
     }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }

@@ -18,10 +18,10 @@ import lsw.guichange.fragment.SettingFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 //    ListFragment listFragment;
-    RecentFragment recentFragment;
-    BookmarkFragment bookmarkFragment;
-    SettingFragment settingFragment;
-    Expandable expandable;
+    public RecentFragment recentFragment;
+    public BookmarkFragment bookmarkFragment;
+    public SettingFragment settingFragment;
+    public Expandable expandable;
 
     public PagerAdapter(FragmentManager fm){
 

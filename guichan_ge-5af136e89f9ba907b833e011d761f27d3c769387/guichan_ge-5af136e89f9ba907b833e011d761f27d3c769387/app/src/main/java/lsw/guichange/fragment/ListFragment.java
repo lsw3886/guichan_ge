@@ -76,7 +76,6 @@ public class ListFragment extends Fragment {
         });
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.ListRecyclerview);
-
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
 
